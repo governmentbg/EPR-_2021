@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EPRO</name>
+    </assembly>
+    <members>
+        <member name="T:EPRO.Areas.Admin.Controllers.AccountController">
+            <summary>
+            Управление на потребители
+            </summary>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.AccountController.Add">
+            <summary>
+            Регистриране на потребител
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.AccountController.Edit(System.String)">
+            <summary>
+            Редакция на потребител
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.AccountController.AuditLog">
+            <summary>
+            Журнал на промените
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Areas.Admin.Controllers.BaseController">
+            <summary>
+            Базов контролер
+            </summary>
+        </member>
+        <member name="F:EPRO.Areas.Admin.Controllers.BaseController.lastContext">
+            <summary>
+            Текущ контекст на промените за даден обект
+            </summary>
+        </member>
+        <member name="T:EPRO.Areas.Admin.Controllers.DismissalController">
+            <summary>
+            Административен панел - Управление на отводи
+            </summary>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.DismissalController.Index">
+            <summary>
+            Административен панел - Регистър на отводите
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.DismissalController.Print(System.String)">
+            <summary>
+            Изтегляне на отвод като pdf документ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.DismissalController.ValidateDismissal(EPRO.Infrastructure.Data.Models.Common.Dismissal)">
+            <summary>
+            Валидиране данните за отвод
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.DismissalController.Expire(System.String)">
+            <summary>
+            Анулиране на отвод
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.DismissalController.Recover(System.String)">
+            <summary>
+            Възстановяване на отвод
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.DismissalController.Report">
+            <summary>
+            Справка за постъпили отводи
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Areas.Admin.Controllers.FilesController">
+            <summary>
+            Управление на файлово съдържание
+            </summary>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.FilesController.GetFileList(System.Int32,System.String)">
+            <summary>
+            Изтегляне списък на файлове към даден обект (отвод)
+            </summary>
+            <param name="sourceType"></param>
+            <param name="sourceID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.FilesController.UploadFile(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Добавяне на нов файл
+            </summary>
+            <param name="sourceType">Тип на обекта</param>
+            <param name="sourceId">Идентификатор на обекта</param>
+            <param name="container">Контайнер за прикачване</param>
+            <param name="defaultTitle">Заглавие на контрола</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.FilesController.Download(System.String)">
+            <summary>
+            Изтегляне на документ по id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.FilesController.Preview(System.String)">
+            <summary>
+            Преглед на документ - само за pdf и изображения
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Areas.Admin.Controllers.HomeController">
+            <summary>
+            Начален екран 
+            </summary>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.HomeController.Index">
+            <summary>
+            Начален екран в административен панел
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Areas.Admin.Controllers.NomenclatureController">
+            <summary>
+            Управление на номенклатури от общ вид
+            </summary>
+        </member>
+        <member name="F:EPRO.Areas.Admin.Controllers.NomenclatureController.nomenclatureService">
+            <summary>
+            Работа с номенклатури
+            </summary>
+        </member>
+        <member name="F:EPRO.Areas.Admin.Controllers.NomenclatureController.nomenclatureType">
+            <summary>
+            Текущ тип на номенклатура
+            </summary>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.Index(System.String)">
+            <summary>
+            Списък с елементи на номенклатурата
+            </summary>
+            <param name="nomenclatureName">Име на типа на номенклатурата</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.NomenclatureListData(DataTables.AspNet.Core.IDataTablesRequest,System.Boolean)">
+            <summary>
+            Метод за достъп на DataTables до данните от номенклатурата
+            </summary>
+            <param name="request">Заявка на DataTables</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.Add">
+            <summary>
+            Добавяне на нов елемент
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.Edit(System.Int32)">
+            <summary>
+            Редактиране на елемент
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.Edit">
+            <summary>
+            Запис на промените в елемент
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.ChangeOrder(EPRO.Core.Models.Nomenclatures.ChangeOrderModel)">
+            <summary>
+            Промяна на подредбата на елементите
+            </summary>
+            <param name="orderArray"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            Действия, изпълнявани след изпълнението на всеки Action
+            -- Управлява менюто, избира кое да е отворено
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Действия, изпълнявани преди изпълнението на всеки Action
+            -- Избира типа на текущата номенклатура
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="M:EPRO.Areas.Admin.Controllers.NomenclatureController.Get_CourtsByRegion(System.Int32)">
+            <summary>
+            Извлича списък на съдилища по даден апелативенн регион
+            </summary>
+            <param name="regionId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Areas.Controllers.AccountController">
+            <summary>
+            Управление по потребители - публичен достъп
+            </summary>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.AccountController.Login(System.String,System.String)">
+            <summary>
+            Вход в системата
+            </summary>
+            <param name="returnUrl"></param>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.AccountController.LogOff">
+            <summary>
+            Изход от системата
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.AccountController.AccessDenied(System.String)">
+            <summary>
+            Обработване на отказан достъп до функционалност
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.AccountController.ExternalLogin(System.String,System.String)">
+            <summary>
+            Вход чрез външен доставчик на ауторизация - вход с КЕП
+            </summary>
+            <param name="provider"></param>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.AccountController.LoginCertError(System.String)">
+            <summary>
+            Обработка на грешка при избор на КЕП
+            </summary>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Areas.Controllers.PublicController">
+            <summary>
+            Публичен контролер - свободен достъп
+            </summary>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.PublicController.Index">
+            <summary>
+            Начален екран за търсене на отводи
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.PublicController.ReCaptchaPassed(System.String)">
+            <summary>
+            Обработка на антиспам защита - Google ReCaptcha
+            </summary>
+            <param name="gRecaptchaResponse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.PublicController.DismissalView(System.String)">
+            <summary>
+            Преглед на отвод
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.PublicController.Print(System.String)">
+            <summary>
+            Изтегляне на отвод в pdf документ
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.PublicController.Download(System.String)">
+            <summary>
+            Изтегляне съдържание на акт към отвод
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Areas.Controllers.PublicController.Error">
+            <summary>
+            Управление на грешки при изпълнение на операции
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Extensions.ControllerExtentions">
+            <summary>
+            Разширителни методи към контролер
+            </summary>
+        </member>
+        <member name="M:EPRO.Extensions.ControllerExtentions.RenderViewAsync``1(Microsoft.AspNetCore.Mvc.Controller,System.String,``0,System.Boolean)">
+            <summary>
+            Рендиране на view като текст
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="controller"></param>
+            <param name="viewName"></param>
+            <param name="model"></param>
+            <param name="partial"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Extensions.ControllerExtentions.RenderPartialViewAsync``1(Microsoft.AspNetCore.Mvc.Controller,System.String,System.String,``0,System.Boolean)">
+            <summary>
+            Рендиране на partial view като текст
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="controller"></param>
+            <param name="execPath"></param>
+            <param name="viewName"></param>
+            <param name="model"></param>
+            <param name="partial"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Extensions.DataTablesExtension.GetResponse``1(DataTables.AspNet.Core.IDataTablesRequest,System.Linq.IQueryable{``0},System.Linq.IQueryable{``0},System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Генерира отговор на AJAX заявка на DataTables
+            </summary>
+            <typeparam name="T">Тип на изходните данни</typeparam>
+            <param name="request">Заявка на DataTables</param>
+            <param name="data">Пълен сет от данни</param>
+            <param name="filteredData">Филтриран сет от данни</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Extensions.DataTablesExtension.GetFilteredData``1(DataTables.AspNet.Core.IDataTablesRequest,System.Linq.IQueryable{``0})">
+            <summary>
+            Използва текста в полето за търсене за филтрация на данните по колоните, 
+            маркирани като колони за търсене
+            </summary>
+            <typeparam name="T">Тип на изходните данни</typeparam>
+            <param name="request">Заявка на DataTables</param>
+            <param name="data">Пълен сет от данни</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Extensions.DataTablesExtension.OrderBy``1(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{DataTables.AspNet.Core.IColumn})">
+            <summary>
+            Сортиране в DataTables
+            </summary>
+            <typeparam name="T">Тип на данните</typeparam>
+            <param name="source">Дърво, което трябва да бъде подредено</param>
+            <param name="sortModels">Модел с данни за начина на сортиране</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Extensions.DataTablesExtension.SearchFor``1(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{DataTables.AspNet.Core.IColumn},System.String)">
+            <summary>
+            Търсене в DataTables
+            </summary>
+            <typeparam name="T">Тип на изходните данни</typeparam>
+            <param name="source">Пълен сет данни</param>
+            <param name="searchModel">Модел с колони, по които се търси</param>
+            <param name="query">Стойност на полето за търсене</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Extensions.HtmlHelperExtensions.ToSelectList``3(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``0,``2}})">
+            <summary>
+            Създава SelectList от колекция
+            </summary>
+            <typeparam name="TSource">Тип на колекцията</typeparam>
+            <typeparam name="TValue">Тип на стойността на елементите</typeparam>
+            <typeparam name="TText">Тип на имената на елементите</typeparam>
+            <param name="source">Изходна колекция</param>
+            <param name="dataValueField">Стойност на елемента</param>
+            <param name="dataTextField">Име на елемента</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Extensions.HtmlHelperExtensions.ToSelectList``3(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Linq.Expressions.Expression{System.Func{``0,``2}},System.Object)">
+            <summary>
+            Създава SelectList от колекция
+            </summary>
+            <typeparam name="TSource">Тип на колекцията</typeparam>
+            <typeparam name="TValue">Тип на стойността на елементите</typeparam>
+            <typeparam name="TText">Тип на имената на елементите</typeparam>
+            <param name="source">Изходна колекция</param>
+            <param name="dataValueField">Стойност на елемента</param>
+            <param name="dataTextField">Име на елемента</param>
+            <param name="selected">Избран елемент</param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Extensions.IOWebAppServiceCollectionExtension">
+            <summary>
+            Описва услугите и контекстите на приложението
+            </summary>
+        </member>
+        <member name="M:EPRO.Extensions.IOWebAppServiceCollectionExtension.AddApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Регистрира услугите на приложението в  IoC контейнера
+            </summary>
+            <param name="services">Регистрирани услуги</param>
+        </member>
+        <member name="M:EPRO.Extensions.IOWebAppServiceCollectionExtension.AddApplicationDbContext(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Регистрира контекстите на приложението в IoC контейнера
+            </summary>
+            <param name="services">Регистрирани услуги</param>
+            <param name="Configuration">Настройки на приложението</param>
+        </member>
+        <member name="M:EPRO.Extensions.IOWebAppServiceCollectionExtension.AddApplicationIdentity(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Регистрира Identity provider в IoC контейнера
+            </summary>
+            <param name="services">Регистрирани услуги</param>
+        </member>
+        <member name="T:EPRO.ModelBinders.DateTimeModelBinder">
+            <summary>
+            Author: Stamo Petkov
+            Created: 07.01.2017
+            Description: Корекция на формата на датата
+            </summary>
+        </member>
+        <member name="T:EPRO.ModelBinders.DateTimeModelBinderProvider">
+            <summary>
+            Author: Stamo Petkov
+            Created: 07.01.2017
+            Description: Корекция на формата на датата
+            </summary>
+        </member>
+        <member name="T:EPRO.ModelBinders.DecimalModelBinder">
+            <summary>
+            Author: Stamo Petkov
+            Created: 07.01.2017
+            Description: Корекция на десетичния разделител
+            </summary>
+        </member>
+        <member name="T:EPRO.ModelBinders.DecimalModelBinderProvider">
+            <summary>
+            Author: Stamo Petkov
+            Created: 07.01.2017
+            Description: Корекция на десетичния разделител
+            </summary>
+        </member>
+    </members>
+</doc>

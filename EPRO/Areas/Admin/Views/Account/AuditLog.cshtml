@@ -1,0 +1,117 @@
+﻿@model AuditLogFilterVM
+@{
+    ViewData["Title"] = "Журнал на промените";
+    var viewAll = (bool)ViewBag.viewAllCourts;
+}
+<fieldset class="filter-form">
+    @if (viewAll)
+    {
+        <div class="row">
+            <div class="col-lg-7">
+                @Html.EditorFor(x => x.CourtId, "GenericSelect2")
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-2">
+            @Html.EditorFor(x => x.DateFrom)
+        </div>
+        <div class="col-lg-2">
+            @Html.EditorFor(x => x.DateTo)
+        </div>
+        <div class="col-lg-3">
+            @Html.EditorFor(x => x.UserName)
+        </div>
+        <div class="col-lg-3">
+            @Html.EditorFor(x => x.Object)
+        </div>
+        <div class="col-lg-2">
+            <a href="#" class="btn btn-primary bottom-left" onclick="loadData(); return false;">Търсене</a>
+        </div>
+    </div>
+</fieldset>
+<div class="row">
+    <div class="col-md-12">
+        <table id="mainTable" class="table table-hover table-striped"></table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+        function loadData() {
+            if (!checkFilterFormHasData('.filter-form')) {
+                swalOk('Въведете стойност в поне един филтър.', function () { });
+                return false;
+            }
+
+            if ($.fn.dataTable.isDataTable('#mainTable')) {
+                refreshTable('#mainTable');
+            }
+            else {
+                var table = $('#mainTable').DataTable({
+                    ajax: {
+                        "url": "@Url.Action("AuditLog_ListData")",
+                        "type": "POST",
+                        "datatype": "json",
+                        data: function (d) {
+                            d.filter = {
+                                @if (viewAll) {
+                    <text>
+                                CourtId: $('#CourtId').val(),
+                                </text>
+                }
+                                DateFrom: $('#DateFrom').val(),
+                                DateTo: $('#DateTo').val(),
+                                UserName: $('#UserName').val(),
+                                Object: $('#Object').val()
+                            }
+                        }
+                    },
+                    filter: false,
+                    columns: [
+                        {
+                            name: 'courtName',
+                            data: 'courtName',
+                            title: 'Съд',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'dateWrt',
+                            data: "dateWrt",
+                            title: 'Дата',
+                            sortable: true,
+                            searchable: false,
+                            "render": function (value) {
+                                return JsonBGdatetime(value);
+                            }
+                        },
+                        {
+                            name: 'userFullName',
+                            data: 'userFullName',
+                            title: 'Потребител',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'operation',
+                            data: 'operation',
+                            title: 'Операция',
+                            sortable: true,
+                            searchable: false
+                        },
+                        {
+                            name: 'object',
+                            data: 'object',
+                            title: 'Обект',
+                            sortable: true,
+                            searchable: false
+                        }
+                    ]
+                });
+                table.order([1, 'desc']);
+            }
+        }
+    </script>
+}

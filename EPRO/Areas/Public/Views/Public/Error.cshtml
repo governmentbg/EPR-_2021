@@ -1,0 +1,15 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="section-content">
+    <div class="search-panel-login clearfix">
+        <div class="title">
+            <span><i class="fa fa-exclamation-triangle"></i>&nbsp;Грешка</span>
+        </div>
+        <div class="search-form-wrapper">
+            <h4>@Model.Message</h4>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,46 @@
+﻿@model EPRO.Infrastructure.ViewModels.Common.DualListVM
+@{
+
+    ViewData["Title"] = Model.ParentDescription;
+}
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Основни данни</legend>
+                @Html.HiddenFor(x => x.ParentId)
+                @Html.HiddenFor(x => x.ParentDescription)
+                @Html.HiddenFor(x => x.BackUrl)
+                @Html.HiddenFor(x => x.ElementsLabel)
+                @Html.DropDownListFor(x => x.SelectedItems, Model.Items, null, new { multiple = "multiple", size = "15" })
+            </fieldset>
+            <div class="form-group">
+                <input type="submit" value="Запис" class="btn btn-success" />
+                <a href="@Model.BackUrl" class="btn btn-danger">Назад</a>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#SelectedItems').bootstrapDualListbox({
+                moveOnSelect: false,
+                selectedListLabel: 'Избрани @Model.ElementsLabel',
+                nonSelectedListLabel:'Свободни @Model.ElementsLabel',
+                infoText: '{0} @Model.ElementsLabel',
+                infoTextEmpty: 'Няма избрани @Model.ElementsLabel',
+                infoTextFiltered: '<span class="label label-warning">Филтрирани</span> {0} от {1}',
+                filterTextClear: 'покажи всички',
+                filterPlaceHolder: 'Търсене',
+                moveSelectedLabel: 'Добави',
+                moveAllLabel: 'Добави всички',
+                removeAllLabel: 'Премахни всички',
+                removeSelectedLabel: 'Премахни'
+            });
+        });
+    </script>
+}
+

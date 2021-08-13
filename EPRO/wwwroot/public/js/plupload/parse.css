@@ -1,0 +1,63 @@
+/* for bootstrap */
+.parse-container { }
+.parse-buttons { }
+.parse-browse { }
+.parse-list { }
+
+.parse-container input,
+.parse-container object { cursor:pointer; }
+
+.parse-file { position:relative; /*background:white;*/ padding:0.8rem; }
+.parse-file:after { display:none; content:""; position:absolute; background:transparent; width:100%; height:100%; top:0; left:0; z-index:5; }
+.parse-dragging > .parse-file:after { display:block; }
+
+.parse-drag { position:absolute; text-align:center; left:0; top:2px; bottom:2px; width:3rem; border-right:1px dotted silver; cursor:move; }
+.parse-drag > i { font-size:1.8rem; vertical-align:middle; margin-top:7px; }
+.parse-remove, .parse-settings { float:right; cursor:pointer; margin-left:1rem; }
+.parse-details { float:right; color:silver; padding-right:1rem; }
+.parse-title, .parse-title:hover { color:#666; text-decoration:none; }
+.parse-title > span { margin-left:0.5rem; }
+.parse-title:hover { color:#000; }
+.parse-progress { position:absolute; left:0; bottom:0; right:0; height:3px; overflow:hidden; font-size:1px; background:#ebebeb; }
+.parse-progress-inner { position:absolute; height:100%; left:0; top:0; background:navy; display:block; width:0; }
+.parse-complete .parse-progress-inner { background:#64991e; width:100%; }
+.parse-complete .parse-progress { display:none; }
+.parse-complete .parse-preview { margin-top:1rem; }
+
+.parse-single { overflow:hidden; }
+.parse-single .parse-buttons { float:left; width:20%; text-align:left; }
+.parse-single .parse-list { margin-left:20%; }
+.parse-disabled.parse-single .parse-list { margin-left:0; }
+
+.parse-target { background:#FEFFBF; }
+.parse-hover { background:#FEFF7F; }
+
+.parse-image-container { text-align:center; }
+.parse-image-container .parse-buttons { float:none; width:auto; }
+.parse-image-container .parse-list { padding-bottom:0.5rem; margin-left:0; }
+.parse-image { text-align:center; background-color:white; display:inline-block; height:148px; width:148px; margin:0.5rem 0.5rem 0 0.5rem; overflow:hidden; border-radius:0px; box-shadow:0 0 4px silver; background-position:center; background-repeat:no-repeat; background-size:128px 129px; }
+.parse-image > .parse-title { width:128px; height:20px; padding:0 10px; line-height:20px; background:rgba(255,255,255,0.7); overflow:hidden; position:absolute; bottom:9px; left:10px; text-overflow:ellipsis; white-space:nowrap; }
+.parse-image > .parse-progress { width:128px; bottom:8px; height:2px; left:10px; }
+.parse-image.parse-complete > .parse-progress { display:none; }
+.parse-image > .parse-extra { display:none; }
+.parse-image > .parse-drag { display:none; }
+.parse-image > .parse-remove { margin-left:0; position:absolute; float:none; top:0; right:0; padding:0; width:28px; line-height:28px; height:28px; background:white; border-radius:4px; }
+.parse-image > .parse-settings { margin-left:0; position:absolute; float:none; top:0; left:0; padding:0; width:28px; line-height:28px; height:28px; background:white; border-radius:4px; }
+
+.parse-wait .parse-settings,
+.parse-uploading .parse-settings,
+.parse-disabled .parse-browse,
+.parse-disabled .parse-remove,
+.parse-disabled .parse-settings,
+.parse-disabled .parse-drag,
+.parse-disabled object,
+.parse-disabled input { display:none !important; }
+
+#parse-holder { box-shadow:inset 0 0 4px gray; background:silver; }
+
+.parse-draggable.parse-file { padding-left:4.5rem; }
+.parse-draggable.parse-file .parse-progress { left:4rem; }
+.parse-draggable.parse-image { padding-left:0.5rem; }
+.parse-draggable.parse-image .parse-progress { left:10px; }
+
+.parse-multiple .parse-list { margin-top:1rem; }

@@ -1,0 +1,711 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EPRO.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:EPRO.Infrastructure.Constants.AccountConstants">
+            <summary>
+            Константи за управление на потребители
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Constants.AccountConstants.Roles">
+            <summary>
+            Роли в системата
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.AccountConstants.Roles.EDIT">
+            <summary>
+            Редактор
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.AccountConstants.Roles.ADMIN">
+            <summary>
+            Локален администратор
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.AccountConstants.Roles.GLOBAL_ADMIN">
+            <summary>
+            Глобален администратор
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Constants.CustomClaimType">
+            <summary>
+            Видове стойности за ауторизиране на потребител
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.CustomClaimType.Court">
+            <summary>
+            id на съд
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.CustomClaimType.FullName">
+            <summary>
+            Имена на потребител
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Constants.NomenclatureConstants.EntryType">
+            <summary>
+            Вид запис на отвод
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.NomenclatureConstants.EntryType.API">
+            <summary>
+            Въведен през Rest.API услуги
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.NomenclatureConstants.EntryType.User">
+            <summary>
+            Въведен от потребител през административен панел
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Constants.NomenclatureConstants.DismissalTypes">
+            <summary>
+            Видове отводи
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.NomenclatureConstants.DismissalTypes.Otvod">
+            <summary>
+            Отвод
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.NomenclatureConstants.DismissalTypes.SamoOtvod">
+            <summary>
+            Самоотвод
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Constants.NomenclatureConstants.SourceType">
+            <summary>
+            Тип обект за присъединяване на файлово съдържание
+            </summary>
+        </member>
+        <member name="F:EPRO.Infrastructure.Constants.NomenclatureConstants.SourceType.Dismissal">
+            <summary>
+            Отводи
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Constants.NomenclatureConstants.AuditOperations">
+            <summary>
+            Стойности за видове операции в журнал на промените
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Contracts.IBaseNomenclature">
+            <summary>
+            Author: Ivaylo Dimitrov
+            Created: 09.01.2020
+            Description: Интерфейс за достъп до полетата 
+            на общи номенклатури без начална и крайна дата
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IBaseNomenclature.Id">
+            <summary>
+            Идентификатор на запис
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IBaseNomenclature.Code">
+            <summary>
+            Код на номенклатурата
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IBaseNomenclature.Label">
+            <summary>
+            Етикет на номенклатурата
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IBaseNomenclature.Description">
+            <summary>
+            Описание на номенклатурата
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IBaseNomenclature.OrderNumber">
+            <summary>
+            Пореден номер
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IBaseNomenclature.IsActive">
+            <summary>
+            Дали записа е активен
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Contracts.ICommonNomenclature">
+            <summary>
+            Author: Stamo Petkov
+            Created: 14.11.2016
+            Description: Интерфейс за достъп до полетата 
+            на общи номенклатури
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Contracts.IDatePeriod">
+            <summary>
+            Author: Ivaylo Dimitrov
+            Created: 09.01.2020
+            Description: Интерфейс за достъп до полетата 
+            с начална и крайна дата
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IDatePeriod.DateStart">
+            <summary>
+            Начало на периода на валидност
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IDatePeriod.DateEnd">
+            <summary>
+            Край на периода на валидност
+            Ако е NULL, е валидна след начална дата
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Contracts.IUserContext">
+            <summary>
+            Текущ контекст на изпълнение на операциите
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IUserContext.UserId">
+            <summary>
+            Идентификатор на потребител
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IUserContext.CourtId">
+            <summary>
+            Идентификатор на съд, ако е за всички съдилища е null
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IUserContext.Email">
+            <summary>
+            Електронна поща на потребител
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Contracts.IUserContext.FullName">
+            <summary>
+            Имена на потребител
+            </summary>
+        </member>
+        <member name="M:EPRO.Infrastructure.Contracts.IUserContext.IsUserInRole(System.String)">
+            <summary>
+            Проверка за налична роля на потребител
+            </summary>
+            <param name="role">Наименование на роля</param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Common.IRepository">
+            <summary>
+            Abstraction of repository access methods
+            </summary>
+            <typeparam name="T">Repository type / db table</typeparam>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.All``1">
+            <summary>
+            All records in a table
+            </summary>
+            <returns>Queryable expression tree</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.All``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            All records in a table
+            </summary>
+            <returns>Queryable expression tree</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.AllReadonly``1">
+            <summary>
+            The result collection won't be tracked by the context
+            </summary>
+            <returns>Expression tree</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.AllReadonly``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            The result collection won't be tracked by the context
+            </summary>
+            <returns>Expression tree</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.GetByIdAsync``1(System.Object)">
+            <summary>
+            Gets specific record from database by primary key
+            </summary>
+            <param name="id">record identificator</param>
+            <returns>Single record</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.AddAsync``1(``0)">
+            <summary>
+            Adds entity to the database
+            </summary>
+            <param name="entity">Entity to add</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.AddRangeAsync``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Ads collection of entities to the database
+            </summary>
+            <param name="entities">Enumerable list of entities</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.Update``1(``0)">
+            <summary>
+            Updates a record in database
+            </summary>
+            <param name="entity">Entity for record to be updated</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.UpdateRange``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Updates set of records in the database
+            </summary>
+            <param name="entities">Enumerable collection of entities to be updated</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.DeleteAsync``1(System.Object)">
+            <summary>
+            Deletes a record from database
+            </summary>
+            <param name="id">Identificator of record to be deleted</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.Delete``1(``0)">
+            <summary>
+            Deletes a record from database
+            </summary>
+            <param name="entity">Entity representing record to be deleted</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.Detach``1(``0)">
+            <summary>
+            Detaches given entity from the context
+            </summary>
+            <param name="entity">Entity to be detached</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.IRepository.SaveChanges">
+            <summary>
+            Saves all made changes in trasaction
+            </summary>
+            <returns>Error code</returns>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Common.Repository">
+            <summary>
+            Implementation of repository access methods
+            for Relational Database Engine
+            </summary>
+            <typeparam name="T">Type of the data table to which 
+            current reposity is attached</typeparam>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.Common.Repository.Context">
+            <summary>
+            Entity framework DB context holding connection information and properties
+            and tracking entity states 
+            </summary>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.DbSet``1">
+            <summary>
+            Representation of table in database
+            </summary>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.AddAsync``1(``0)">
+            <summary>
+            Adds entity to the database
+            </summary>
+            <param name="entity">Entity to add</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.AddRangeAsync``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Ads collection of entities to the database
+            </summary>
+            <param name="entities">Enumerable list of entities</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.All``1">
+            <summary>
+            All records in a table
+            </summary>
+            <returns>Queryable expression tree</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.AllReadonly``1">
+            <summary>
+            The result collection won't be tracked by the context
+            </summary>
+            <returns>Expression tree</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.DeleteAsync``1(System.Object)">
+            <summary>
+            Deletes a record from database
+            </summary>
+            <param name="id">Identificator of record to be deleted</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.Delete``1(``0)">
+            <summary>
+            Deletes a record from database
+            </summary>
+            <param name="entity">Entity representing record to be deleted</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.Detach``1(``0)">
+            <summary>
+            Detaches given entity from the context
+            </summary>
+            <param name="entity">Entity to be detached</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.Dispose">
+            <summary>
+            Disposing the context when it is not neede
+            Don't have to call this method explicitely
+            Leave it to the IoC container
+            </summary>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.GetByIdAsync``1(System.Object)">
+            <summary>
+            Gets specific record from database by primary key
+            </summary>
+            <param name="id">record identificator</param>
+            <returns>Single record</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.SaveChanges">
+            <summary>
+            Saves all made changes in trasaction
+            </summary>
+            <returns>Error code</returns>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.Update``1(``0)">
+            <summary>
+            Updates a record in database
+            </summary>
+            <param name="entity">Entity for record to be updated</param>
+        </member>
+        <member name="M:EPRO.Infrastructure.Data.Common.Repository.UpdateRange``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Updates set of records in the database
+            </summary>
+            <param name="entities">Enumerable collection of entities to be updated</param>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.ActPublicationRequest">
+            <summary>
+            Заявка за актуализиране на файл към акт по отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ActPublicationRequest.DismissalId">
+            <summary>
+            Идентификатор на отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ActPublicationRequest.FileName">
+            <summary>
+            Име на файла, с разширението
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ActPublicationRequest.FileSource">
+            <summary>
+            Съдържание на акта - Base64 encoded byte[]
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ActPublicationRequest.MimeType">
+            <summary>
+            MimeType на файла 
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.DecisionModel">
+            <summary>
+            Описание на решение по отвода
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DecisionModel.HearingType">
+            <summary>
+            Вид заседание
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DecisionModel.HearingDate">
+            <summary>
+            Дата на заседанието
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DecisionModel.ActType">
+            <summary>
+            Вид акт
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DecisionModel.ActNumber">
+            <summary>
+            Номер на акта
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DecisionModel.ActDeclaredDate">
+            <summary>
+            Дата на акта
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest">
+            <summary>
+            Заявка за регистриране/актуализиране на отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.DismissalId">
+            <summary>
+            Идентификатор на отвод - задължително при актуализация
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.Court">
+            <summary>
+            Код на съд
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.CaseType">
+            <summary>
+            Код на точен вид дело
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.CaseNumber">
+            <summary>
+            Номер на дело, 14 цифри
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.CaseYear">
+            <summary>
+            Година на делото
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.DismissalType">
+            <summary>
+            Код на вид отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.ObjectionUpheld">
+            <summary>
+            Уважено искане за отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.DismissalReason">
+            <summary>
+            Причина за отвода
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.CaseRole">
+            <summary>
+            Код на роля на съдията в делото
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.Judge">
+            <summary>
+            Съдия
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.Objection">
+            <summary>
+            Искане за отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest.Decision">
+            <summary>
+            Решение за отвода
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationResponse">
+            <summary>
+            Отговор на заявката за регистриране на отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationResponse.DismissalId">
+            <summary>
+            Идентификатор на отвод, при успешен запис
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationResponse.Error">
+            <summary>
+            Описание на грешка
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.ErrorModel">
+            <summary>
+            Описание на грешка при трансфер
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ErrorModel.ErrorType">
+            <summary>
+            Код на грешка
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ErrorModel.Reason">
+            <summary>
+            Причина за грешката
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ErrorModel.Description">
+            <summary>
+            Описание на грешката
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ErrorModel.FaultyAttribute">
+            <summary>
+            Наименование на грешното поле от заявката
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.JudgeModel">
+            <summary>
+            Описание на съдия
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.JudgeModel.JudgeName">
+            <summary>
+            Имена на съдията
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.JudgeModel.IsChairman">
+            <summary>
+            Флаг дали съдията е председател на състава
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.ObjectionModel">
+            <summary>
+            Искане за отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ObjectionModel.DocumentType">
+            <summary>
+            Вид документ, с който е заявено искането за отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ObjectionModel.DocumentNumber">
+            <summary>
+            Номер на документа 
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ObjectionModel.DocumentDate">
+            <summary>
+            Дата на документа
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ObjectionModel.SideName">
+            <summary>
+            Имена на лицето, подало искането за отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ObjectionModel.SideInvolmentKind">
+            <summary>
+            Вид на лицето в документа
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.ReplaceDismissalRequest">
+            <summary>
+            Заявка за добавяне на нов съдия по отвод
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ReplaceDismissalRequest.DismissalId">
+            <summary>
+            Идентификатор на отвода
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.ReplaceDismissalRequest.ReplaceJudge">
+            <summary>
+            Нов съдия
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.DataContracts.UpdateResponse">
+            <summary>
+            Резултат от актуализиране на данни
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.UpdateResponse.UpdateSuccessful">
+            <summary>
+            Флаг за успешен запис
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.DataContracts.UpdateResponse.Error">
+            <summary>
+            Описание на грешка, при неуспешен запис
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Common.ApiKey">
+            <summary>
+            Ключове за достъп през API услуга на ниво съд
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Common.AuditLog">
+            <summary>
+            Журнал на промените
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Common.Dismissal">
+            <summary>
+            Отводи
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.Data.Models.Common.Dismissal.EntryType">
+            <summary>
+            Вид запис: 1 от API, 2 въведен през административен модул
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Common.MongoFile">
+            <summary>
+            Файлово съдържание
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.ActType">
+            <summary>
+            Вид съдебен акт по ПАС
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.ApealRegion">
+            <summary>
+            Апелативни райони
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.BaseNomenclature">
+            <summary>
+            Author: Stamo Petkov
+            Created: 14.11.2016
+            Description: Интерфейс за достъп до полетата 
+            на общи номенклатури
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.CaseRole">
+            <summary>
+            Роля в делото: Съдия-докладчик, член състав
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.CaseType">
+            <summary>
+            Вид дело по ПАС
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.Court">
+            <summary>
+            Съдилища
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.DismissalType">
+            <summary>
+            Вид отвод: Отвод или самоотвод
+            </summary>
+        </member>
+        <member name="T:EPRO.Infrastructure.Data.Models.Nomenclatures.HearingType">
+            <summary>
+            Вид заседание
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnDownloadResult.ContentType">
+            <summary>
+            Mime type
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnDownloadResult.FileName">
+            <summary>
+            Actual file name, including extension
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnUploadRequest.Title">
+            <summary>
+            Friendly name of content
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnUploadRequest.FileName">
+            <summary>
+            Actual file name, including extension
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnUploadRequest.ContentType">
+            <summary>
+            Mime type
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnUploadRequest.FileContent">
+            <summary>
+            Binary content of the file
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnUploadRequest.UserUploaded">
+            <summary>
+            UserId of user uploaded
+            </summary>
+        </member>
+        <member name="P:EPRO.Infrastructure.ViewModels.Cdn.CdnUploadRequest.FileContainer">
+            <summary>
+            Element id of div tag file container
+            </summary>
+        </member>
+    </members>
+</doc>

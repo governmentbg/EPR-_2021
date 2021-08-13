@@ -1,0 +1,16 @@
+﻿@model IEnumerable<NewsVM>
+@using EPRO.Infrastructure.ViewModels.Common
+<div class="news-container">
+    @foreach (var item in Model)
+    {
+        <a asp-action="NewsView" asp-route-id="@item.Id" title="Преглед">
+            <div class="news-item">
+                <h4>@item.Label</h4>
+                <span>@(item.DateStart.ToString("dd MMMM yyyy г."))</span>
+            </div>
+        </a>
+    }
+    <div class="text-right">
+        <a asp-action="News">Виж всички новини</a>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+﻿@model ReportFilterVM
+@using EPRO.Core.Models.FilterModels
+@{
+    ViewData["Title"] = "Справка за отводи";
+    var canChange = (bool)ViewBag.canChange;
+    var viewAll = (bool)ViewBag.viewAllCourts;
+}
+
+<fieldset class="filter-form">
+    @if (viewAll)
+    {
+        <div class="row">
+            <div class="col-lg-6">
+                @Html.EditorFor(x => x.ApealRegionId, "GenericDropDown")
+            </div>
+            <div class="col-lg-6">
+                @Html.EditorFor(x => x.CourtIds, "GenericDropDownMultiple")
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.JudgeName)
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.DismissalTypeId, "GenericDropDown")
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CaseRoleId, "GenericDropDown")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CaseTypeIds, "GenericDropDownMultiple")
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CaseNumber)
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CaseYear, "GenericDropDown")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            @Html.EditorFor(x => x.PeriodFrom, "DateTime")
+        </div>
+        <div class="col-lg-3">
+            @Html.EditorFor(x => x.PeriodTo, "DateTime")
+        </div>
+        <div class="col-lg-2">
+            @Html.EditorFor(x => x.HearingTypeId, "GenericDropDown")
+        </div> <div class="col-lg-2">
+            @Html.EditorFor(x => x.ActTypeId, "GenericDropDown")
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group min-hgt-30">
+                <a href="#" class="btn btn-primary bottom-left" onclick="loadData(); return false;">Търсене</a>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<div class="row">
+    <div class="col-md-12">
+        <table id="mainTable" class="table table-hover table-striped"></table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+
+            @if (viewAll) {
+                    <text>
+            $('#ApealRegionId').change(function() {
+                                    requestGET_Json('@Url.Action("Get_CourtsByRegion", "Nomenclature")', { regionId: $('#ApealRegionId').val() }, function(data) {
+                    $('#CourtIds').val(null).html("").select2({
+                                        language: "bg",
+                        data: data
+                    });
+                    });
+            });
+            </text>
+                }
+        });
+        function loadData() {
+            if (!checkFilterFormHasData('.filter-form')) {
+                swalOk('Въведете стойност в поне един филтър.', function () { });
+                return false;
+            }
+
+            if ($.fn.dataTable.isDataTable('#mainTable')) {
+                refreshTable('#mainTable');
+            }
+            else {
+                var table = $('#mainTable').DataTable({
+                    ajax: {
+                        "url": "@Url.Action("Report_ListData")",
+                        "type": "POST",
+                        "datatype": "json",
+                        data: function (d) {
+                            d.filter = {
+                                 @if (viewAll) {
+                    <text>
+
+                                ApealRegionId: $('#ApealRegionId').val(),
+                                CourtIds: $('#CourtIds').val().join(','),
+                                </text>
+                }
+                                JudgeName: $('#JudgeName').val(),
+                                DismissalTypeId: $('#DismissalTypeId').val(),
+                                CaseTypeIds: $('#CaseTypeIds').val().join(','),
+                                CaseNumber: $('#CaseNumber').val(),
+                                CaseYear: $('#CaseYear').val(),
+                                PeriodFrom: $('#PeriodFrom').val(),
+                                PeriodTo: $('#PeriodTo').val(),
+                                CaseRoleId: $('#CaseRoleId').val(),
+                                HearingTypeId: $('#HearingTypeId').val(),
+                                ActTypeId: $('#ActTypeId').val()
+                            }
+                        }
+                    },
+                    filter:false,
+                    columns: [
+                        {
+                            name: 'regionName',
+                            data: 'regionName',
+                            title: 'Апелативен район',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'courtName',
+                            data: 'courtName',
+                            title: 'Орган на съдебната власт',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'judgeName',
+                            data: 'judgeName',
+                            title: 'Съдия',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'dismissalTypeName',
+                            data: 'dismissalTypeName',
+                            title: 'Вид отвод',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'caseNumber',
+                            data: 'caseNumber',
+                            title: 'Дело №',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'caseTypeName',
+                            data: 'caseTypeName',
+                            title: 'Вид дело',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'replaceJudgeName',
+                            data: 'replaceJudgeName',
+                            title: 'Нов съдия',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'actions',
+                            data: null,
+                            title: "",
+                            sortable: false,
+                            searchable: false,
+                            width: 120,
+                            className: "text-center noExport",
+                            "render": function (a, b, item, c) {
+                               return TemplateToHtml('#templateView', item .id);
+                            }
+                        }
+                    ]
+                });
+            }
+        }
+    </script>
+    <script id="templateView" type="text/x-handlebars-template">
+        <a href="@Url.Action("View")/{{this}}" class="btn btn-info btn-sm" title="Преглед"><i class="fa fa-search"></i><span class="d-none d-lg-inline"> Преглед</span></a>
+    </script>
+}

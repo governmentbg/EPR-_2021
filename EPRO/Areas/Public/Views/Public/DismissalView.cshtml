@@ -1,0 +1,74 @@
+﻿@model EPRO.Infrastructure.Data.Models.Common.Dismissal
+@using EPRO.Infrastructure.ViewModels.Cdn
+@{
+
+    ViewData["Title"] = "Преглед на отвод";
+    var fileInfo = (CdnItemVM)ViewBag.fileInfo;
+}
+
+<div class="wrapper">
+    <h2 class="text-align-center">Данни за отвода</h2>
+    <div class="inner-page-table">
+        @Html.DisplayFor(x => x.CourtId, "objFromCombo")
+        @Html.DisplayFor(x => x.DismissalTypeId, "objFromCombo")
+        @Html.DisplayFor(x => x.CaseTypeId, "objFromCombo")
+        @Html.DisplayFor(x => x.CaseNumber, "obj")
+        @Html.DisplayFor(x => x.CaseYear, "obj")
+        <div class="tr">
+            <div class="lbl"><label>Мотиви за уважение или отхвърляне на искане за отвод/<br />Мотиви за самоотвод</label>:</div>
+            <div class="vl">@Model.DismissalReason</div>
+        </div>
+        <div class="tr">
+            <div class="lbl"></div>
+            <div class="vl"><a class="text-primary" href="@(Url.Action("Print",new { id = Model.Id}))" title="Изтегли файла като pdf">Печат</a></div>
+        </div>
+    </div>
+    @if (Model.DismissalTypeId == NomenclatureConstants.DismissalTypes.Otvod)
+    {
+        <h2 class="text-align-center">Искане за отвод</h2>
+        <div class="inner-page-table">
+            @Html.DisplayFor(x => x.DocumentType, "obj")
+            @Html.DisplayFor(x => x.DocumentNumber, "obj")
+            @Html.DisplayFor(x => x.DocumentDate, "DateTime")
+            @Html.DisplayFor(x => x.SideInvolmentKind, "obj")
+            @Html.DisplayFor(x => x.SideFullName, "obj")
+            @Html.DisplayFor(x => x.ObjectionUpheld, "Boolean")
+        </div>
+    }
+    <h2 class="text-align-center">Съдия</h2>
+    <div class="inner-page-table">
+        @Html.DisplayFor(x => x.CaseRoleId, "objFromCombo")
+        @Html.DisplayFor(x => x.JudgeFullName, "obj")
+        @Html.DisplayFor(x => x.JudgeIsChairman, "BooleanIsChairman")
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ReplaceJudgeFullName))
+    {
+        <h2 class="text-align-center">Нов съдия</h2>
+        <div class="inner-page-table">
+            @Html.DisplayFor(x => x.ReplaceJudgeFullName, "obj")
+            @Html.DisplayFor(x => x.ReplaceJudgeIsChairman, "BooleanIsChairman")
+        </div>
+    }
+    <h2 class="text-align-center">Решение за отвод/самоотвод</h2>
+    <div class="inner-page-table">
+        @Html.DisplayFor(x => x.HearingTypeId, "objFromCombo")
+
+        @Html.DisplayFor(x => x.HearingDate, "DateTime")
+
+        @Html.DisplayFor(x => x.ActTypeId, "objFromCombo")
+
+        @Html.DisplayFor(x => x.ActNumber, "obj")
+
+        @Html.DisplayFor(x => x.ActDeclaredDate, "DateTime")
+        @if (fileInfo != null)
+        {
+            <div class="tr">
+                <div class="lbl">Съдържание на акта:</div>
+                <div class="vl">
+                    <a class="text-primary" href="@(Url.Action("Download",new { id = fileInfo.FileId}))" title="Изтегли файла"><i class="@fileInfo.FileIcon"></i>&nbsp;@fileInfo.Title</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

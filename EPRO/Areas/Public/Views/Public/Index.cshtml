@@ -1,0 +1,269 @@
+﻿@model DismissalFilterVM
+@using EPRO.Core.Models.FilterModels
+@using EPRO.Models
+@inject Microsoft.Extensions.Options.IOptions<RecaptchaOptions> rcOptions;
+@{
+    var recaptcha = rcOptions.Value;
+}
+@{
+    ViewData["Title"] = "ЕПРО | Начало";
+    ViewData["menu"] = "index";
+}
+
+<div class="info-box-wrapper">
+    <div class="info-box" style="text-align: justify">
+        <p>В момента се намирате в Електронния публичен регистър на отводите (ЕПРО). ЕПРО представлява достъпен през интернет регистър, в който е публикувана информация за съдебните актове, съдържащи произнасянето на съда по поисканите от страни по делата отводи и мотивите, с които са уважени или не, както и съдебните актове, обективиращи отводи по инициатива на съда (самоотводи).  За преглед на конкретен отвод/самоотвод по дело, е необходимо да въведете критерии за търсене. За повече информация вижте разделите Правила за достъп и Помощ.</p>
+    </div>
+</div>
+
+
+<!-- SEARCH PANEL -->
+<div class="search-panel clearfix">
+    <div class="title">
+        <span>Справка за</span>
+
+        <strong>отводи и</strong>
+        <strong>самоотводи</strong>
+    </div>
+    <div class="search-form-wrapper">
+        <form class="search-form filter-form" method="post">
+            @if (!ViewContext.ViewData.ModelState.IsValid)
+            {
+                <!-- VALIDATION -->
+                <div class="rw">
+                    <div class="lbl"></div>
+                    <div class="vl">
+                        @Html.ValidationSummary()
+                    </div>
+                </div>
+            }
+
+            @Html.AntiForgeryToken()
+            <div class="rw">
+                <div class="lbl">Съд:</div>
+                <div class="vl">
+                    <div class="col-sm-10 no-padding">
+                        @Html.EditorFor(d => d.CourtId, "PublicDropDown")
+                    </div>
+                </div>
+            </div>
+            <div class="rw">
+                <div class="lbl">Съдия:</div>
+                <div class="vl">
+                    <div class="col-sm-10 no-padding">
+                        @Html.EditorFor(x => x.JudgeName)
+                    </div>
+                </div>
+            </div>
+            <div class="rw">
+                <div class="lbl">Вид отвод:</div>
+                <div class="vl">
+                    <div class="col-sm-10 no-padding">
+                        @Html.EditorFor(x => x.DismissalTypeId, "PublicDropDown")
+                    </div>
+                </div>
+            </div>
+            <div class="rw">
+                <div class="lbl">Вид дело:</div>
+                <div class="vl">
+                    <div class="col-sm-10 no-padding">
+                        @Html.EditorFor(x => x.CaseTypeId, "PublicDropDown")
+                    </div>
+
+                </div>
+            </div>
+            <div class="rw">
+                <div class="lbl">Дело № / Година:</div>
+                <div class="vl">
+                    <div class="col-sm-10 no-padding">
+                        <div class="row">
+                            <div class="col-sm-6">@Html.EditorFor(x => x.CaseNumber)</div>
+                            <div class="col-sm-1">/</div>
+                            <div class="col-sm-5">@Html.EditorFor(x => x.CaseYear, "PublicDropDown")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rw">
+                <div class="lbl">Период от / до:</div>
+                <div class="vl">
+                    <div class="col-sm-10 no-padding">
+                        <div class="row">
+                            <div class="col-sm-6">@Html.EditorFor(x => x.PeriodFrom, "DateTime")</div>
+                            <div class="col-sm-1">/</div>
+                            <div class="col-sm-5">@Html.EditorFor(x => x.PeriodTo, "DateTime")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rw">
+                <div class="lbl">Мотиви за отвода/самоотвода:</div>
+                <div class="vl">
+                    <div class="col-sm-10 no-padding">
+                        @Html.EditorFor(x => x.DismissalReason)
+                    </div>
+                </div>
+            </div>
+
+
+            @*<div class="rw">
+                <div class="lbl"></div>
+                <div class="vl">
+                    <div id="rc-inline"></div>
+                </div>
+            </div>*@
+            <div class="rw">
+                <div class="lbl"> </div>
+                <div class="vl">
+                    <div class="col-xs-6 no-padding">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="rw">
+                <div class="lbl"></div>
+                <div class="vl">
+                    <div class="row">
+                        <div class="col-lg-4"><a href="#" class="search-submit wait" onclick="btnClick(); return false;" value="ТЪРСИ">ТЪРСИ</a></div>
+                        <div class="col-lg-8">
+                            <div id="rc-inline"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @Html.Hidden("recaptcha")
+        </form>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <table id="mainTable" class="table table-hover table-striped"></table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function loadData() {
+            if (!checkFilterFormHasData('.filter-form')) {
+                messageHelper.ShowErrorMessage("Въведете стойност в поне един филтър.");
+                //swalOk('Въведете стойност в поне един филтър.', function () { });
+                return false;
+            }
+
+            if (!$('#recaptcha').val()) {
+                return;
+            }
+            if ($.fn.dataTable.isDataTable('#mainTable')) {
+                refreshTable('#mainTable');
+            }
+            else {
+                var table = $('#mainTable').DataTable({
+                    ajax: {
+                        "url": "@Url.Action("ListData")",
+                        "type": "POST",
+                        "datatype": "json",
+                        data: function (d) {
+                            d.filter = {
+                                CourtId: $('#CourtId').val(),
+                                JudgeName: $('#JudgeName').val(),
+                                DismissalTypeId: $('#DismissalTypeId').val(),
+                                CaseTypeId: $('#CaseTypeId').val(),
+                                CaseNumber: $('#CaseNumber').val(),
+                                CaseYear: $('#CaseYear').val(),
+                                PeriodFrom: $('#PeriodFrom').val(),
+                                PeriodTo: $('#PeriodTo').val(),
+                                DismissalReason: $('#DismissalReason').val(),
+                                reCaptchaToken: $('#recaptcha').val()
+                            }
+                        }
+                    },
+                    filter: false,
+                    columns: [
+                        {
+                            name: 'judgeName',
+                            data: 'judgeName',
+                            title: 'Съдия',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'dismissalTypeName',
+                            data: 'dismissalTypeName',
+                            title: 'Вид отвод',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'courtName',
+                            data: 'courtName',
+                            title: 'Орган на съдебната власт',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'caseNumber',
+                            data: 'caseNumber',
+                            title: 'Дело №',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'caseTypeName',
+                            data: 'caseTypeName',
+                            title: 'Вид дело',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'replaceJudgeName',
+                            data: 'replaceJudgeName',
+                            title: 'Нов съдия',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'actions',
+                            data: null,
+                            title: "",
+                            sortable: false,
+                            searchable: false,
+                            width: 140,
+                            className: "text-center noExport",
+                            "render": function (a, b, item, c) {
+                                return TemplateToHtml('#templateView', item.id);
+                            }
+                        }
+                    ]
+                });
+            }
+        }
+    </script>
+    <script id="templateView" type="text/x-handlebars-template">
+        <a href="@Url.Action("DismissalView")/{{this}}" class="btn btn-info btn-sm" title="Преглед"><i class="fa fa-search"></i><span class="d-none d-lg-inline-block">&nbsp;Преглед</span></a>
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaLoadCallback"></script>
+    <script>
+        var reCaptchaClientId = {};
+        function onRecaptchaLoadCallback() {
+            reCaptchaClientId = grecaptcha.render('rc-inline', {
+                'sitekey': '@(recaptcha.SiteKey)',
+                'badge': 'inline',
+                'size': 'invisible'
+            });
+        }
+        function btnClick() {
+                grecaptcha.execute(reCaptchaClientId, {
+                    action: 'submit'
+                })
+                    .then(function (token) {
+                        $('#recaptcha').val(token);
+                        loadData();
+                    });
+        }
+    </script>
+}

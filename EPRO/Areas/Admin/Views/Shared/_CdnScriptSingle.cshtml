@@ -1,0 +1,64 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $('.cdn-files').each(function (i, e) {
+            if (!$(e).attr('id')) {
+                $(e).attr('id', Date.now());
+            }
+            LoadFiles('#'+$(e).attr('id'));
+        });
+    });
+    function LoadFiles(container) {
+        let sourceType = $(container).data('sourcetype');
+        let sourceId = $(container).data('sourceid');
+        let editMode = $(container).data('editmode');
+
+        let url = '@Url.Action("GetFileList", "Files")';
+        if ($(container).data('url')) {
+            url = $(container).data('url');
+        }
+        let data = {
+            sourceType : sourceType,
+            sourceID: sourceId
+            };
+        requestGET_Json(url, data, function (result) {
+            let filesModel = { canChange: editMode == 'replace', data: result, container: container };
+            $(container).html(TemplateToHtml('#templateFilesList', filesModel));
+
+        });
+    }
+    function AppendFile(container) {
+        let sourceType = $(container).data('sourcetype');
+        let sourceId = $(container).data('sourceid');
+        let url = '@Url.Action("UploadFile", "Files")';
+        let data = {
+            sourceType : sourceType,
+            sourceID: sourceId,
+            container: container
+        };
+        requestContent(url, data, function (html) {
+            ShowModalDialog("Избор на файл",html);
+        });
+    }
+</script>
+
+<script id="templateFilesList" type="text/x-handlebars-template">
+    <div class="form-group">
+        <label class="control-label">Съдържание на акта</label>
+        <div class="row">
+            <div class="col-lg-8">
+                {{#each this.data}}
+                {{#if canPreview}}
+                <a class="btn btn-xs btn-default" href="@(Url.Action("Preview","Files"))/{{this.fileId}}" title="Преглед на файла" target="_blank"><i class="fa fa-eye"></i></a>
+                &nbsp;
+                {{/if}}
+                <a class="text-primary" href="@(Url.Action("Download","Files"))/{{this.fileId}}" title="Изтегли файла"><i class="{{fileIcon}}"></i>&nbsp;{{this.title}}</a>
+                {{/each}}
+            </div>
+            <div class="col-lg-4">
+                {{#if canChange}}
+                <a class="btn btn-sm btn-success m-b-5" href="#" title="Избери файл." onclick="AppendFile('{{this.container}}');return false;">Прикачи документ</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</script>

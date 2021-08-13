@@ -1,0 +1,56 @@
+/* for bootstrap */
+.colorin-container { }
+.colorin-buttons { }
+.colorin-browse { }
+.colorin-list { }
+
+.colorin-container input,
+.colorin-container object { cursor:pointer; }
+
+.colorin-file { position:relative; background:white; padding:0rem; }
+.colorin-file:after { display:none; content:""; position:absolute; background:transparent; width:100%; height:100%; top:0; left:0; z-index:5; }
+.colorin-dragging > .colorin-file:after { display:block; }
+
+.colorin-remove, .colorin-rename { float:right; cursor:pointer; }
+.colorin-details { float:right; color:silver; padding-right:1rem; }
+.colorin-title, .colorin-title:hover { color:#666; text-decoration:none; }
+.colorin-title > span { margin-left:0.5rem; }
+.colorin-title:hover { color:#000; }
+.colorin-progress { position:absolute; width:100%; bottom:0; left:0; height:3px; overflow:hidden; font-size:1px; background:#ebebeb; }
+.colorin-progress-inner { position:absolute; height:100%; left:0; top:0; background:navy; display:block; width:0; }
+.colorin-complete .colorin-progress-inner { background:#64991e; width:100%; }
+
+.colorin-single { overflow:hidden; }
+.colorin-single .colorin-buttons { float:left; width:30%; text-align:center; }
+.colorin-single .colorin-list { margin-left:30%; }
+
+.colorin-point { cursor:crosshair; border-radius:5px; position:absolute; width:10px; height:10px; margin-top:-5px; margin-left:-5px; background:red; line-height:0; overflow:hidden; font-size:1px; }
+.colorin-point-alternative { background:blue; }
+.colorin-image img { cursor:crosshair; }
+
+.colorin-target { background:#FEFFBF; }
+.colorin-hover { background:#FEFF7F; }
+
+.colorin-image-container { text-align:center; }
+.colorin-image-container .colorin-buttons { float:none; width:auto; }
+.colorin-image-container .colorin-list { padding-bottom:0.5rem; margin-left:0; }
+.colorin-image { text-align:center; background-color:white; display:inline-block; width:940px; margin:0.5rem 0.5rem 0 0.5rem; overflow:hidden; border-radius:0px; box-shadow:0 0 4px silver; background-position:center; background-repeat:no-repeat; background-size:940px auto; }
+.colorin-image > .colorin-title { width:948px; height:20px; padding:0 10px; line-height:20px; background:rgba(255,255,255,0.7); overflow:hidden; position:absolute; bottom:9px; left:10px; text-overflow:ellipsis; white-space:nowrap; }
+.colorin-image > .colorin-progress { width:948px; bottom:8px; height:2px; left:10px; }
+.colorin-image.colorin-complete > .colorin-progress { display:none; }
+.colorin-image > .colorin-extra { display:none; }
+.colorin-image > .colorin-remove { position:absolute; float:none; top:0; right:0; padding:0; width:28px; line-height:28px; height:28px; background:white; border-radius:4px; }
+.colorin-image > .colorin-rename { position:absolute; float:none; top:0; left:0; padding:0; width:28px; line-height:28px; height:28px; background:white; border-radius:4px; }
+
+.colorin-wait .colorin-rename,
+.colorin-uploading .colorin-rename,
+.colorin-disabled .colorin-browse,
+.colorin-disabled .colorin-remove,
+.colorin-disabled .colorin-rename,
+.colorin-disabled object,
+.colorin-disabled input { display:none !important; }
+
+#colorin-holder { box-shadow:inset 0 0 4px gray; background:silver; }
+
+.colorin-image > * { display:none; }
+.colorin-image > img { display:block; }

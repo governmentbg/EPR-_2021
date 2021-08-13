@@ -1,0 +1,7 @@
+﻿@model object
+<div class="form-group">
+    <label asp-for="@Model" class="control-label"></label>
+    <div>
+        @Html.Raw(Model?.ToString())
+    </div>
+</div>

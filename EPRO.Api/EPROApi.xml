@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EPRO.Api</name>
+    </assembly>
+    <members>
+        <member name="T:EPRO.Api.Authentication.AuthenticationBuilderExtensions">
+            <summary>
+            Методи за добавяне на Bearer Token авторизация в IoC контейнера
+            </summary>
+        </member>
+        <member name="M:EPRO.Api.Authentication.AuthenticationBuilderExtensions.AddBearerTokenSupport(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{EPRO.Api.Authentication.BearerTokenAuthenticationOptions})">
+            <summary>
+            Добавяне към IoC контейнера с възможност за настройка
+            </summary>
+            <param name="authenticationBuilder">Разширяван обект</param>
+            <param name="options">Настройки</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Api.Authentication.AuthenticationBuilderExtensions.AddBearerTokenSupport(Microsoft.AspNetCore.Authentication.AuthenticationBuilder)">
+            <summary>
+            Добавяне към IoC контейнера
+            </summary>
+            <param name="authenticationBuilder">Разширяван обект</param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Api.Authentication.BearerTokenAuthenticationHandler">
+            <summary>
+            Автентикация с Bearer Token
+            </summary>
+        </member>
+        <member name="M:EPRO.Api.Authentication.BearerTokenAuthenticationHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{EPRO.Api.Authentication.BearerTokenAuthenticationOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock,EPRO.Api.Authentication.IGetBearerTokenQuery)">
+            <summary>
+            Инжектиране на зависимости
+            </summary>
+            <param name="options">Настройки</param>
+            <param name="logger">Системен Логър</param>
+            <param name="encoder">форматоира текст в URL съвместим</param>
+            <param name="clock">Системен часовник</param>
+            <param name="getApiKeyQuery">Метод, позволяващ извличане на токена</param>
+        </member>
+        <member name="M:EPRO.Api.Authentication.BearerTokenAuthenticationHandler.HandleAuthenticateAsync">
+            <summary>
+            Метод, осъществяващ автентикацията
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Api.Authentication.BearerTokenAuthenticationHandler.ToHexString(System.Byte[])">
+            <summary>
+            Кодира текст в шестнайсетичен код
+            </summary>
+            <param name="bytes">Текста за кодиране, 
+            като масив от байтове</param>
+            <returns>текст в шестнайсетичен код</returns>
+        </member>
+        <member name="T:EPRO.Api.Authentication.BearerTokenAuthenticationOptions">
+            <summary>
+            Настройки на Bearer Token Авторизацията
+            </summary>
+        </member>
+        <member name="F:EPRO.Api.Authentication.BearerTokenAuthenticationOptions.DefaultScheme">
+            <summary>
+            Схема по подразбиране
+            </summary>
+        </member>
+        <member name="P:EPRO.Api.Authentication.BearerTokenAuthenticationOptions.Scheme">
+            <summary>
+            Схема
+            </summary>
+        </member>
+        <member name="F:EPRO.Api.Authentication.BearerTokenAuthenticationOptions.AuthenticationType">
+            <summary>
+            Тип на автентикацията
+            </summary>
+        </member>
+        <member name="T:EPRO.Api.Authentication.GetBearerTokenQuery">
+            <summary>
+            Достъп до информация на потребителя по Bearer Token
+            </summary>
+        </member>
+        <member name="M:EPRO.Api.Authentication.GetBearerTokenQuery.#ctor(EPRO.Infrastructure.Data.Common.IRepository)">
+            <summary>
+            Инжектиране на зависимости
+            </summary>
+            <param name="_repo">Услуга за достъп до Redis</param>
+        </member>
+        <member name="M:EPRO.Api.Authentication.GetBearerTokenQuery.GetDataByToken(System.String)">
+            <summary>
+            Извлича информация за потребителя по token
+            </summary>
+            <param name="token">Идентификационен token</param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Api.Authentication.IGetBearerTokenQuery">
+            <summary>
+            Достъп до информация на потребителя по Bearer Token
+            </summary>
+        </member>
+        <member name="M:EPRO.Api.Authentication.IGetBearerTokenQuery.GetDataByToken(System.String)">
+            <summary>
+            Извлича информация за потребителя по token
+            </summary>
+            <param name="token">Идентификационен token</param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Api.Controllers.BaseController">
+            <summary>
+            API  - Базов контролер 
+            </summary>
+        </member>
+        <member name="T:EPRO.Api.Controllers.DismissalController">
+            <summary>
+            Съобщения обменяни между ЕПРО и софтуерите използвани от съдилищата за управление на дела
+            </summary>
+        </member>
+        <member name="M:EPRO.Api.Controllers.DismissalController.DismissalInsert(EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest)">
+            <summary>
+            Заявка за регистриране на отвод/самоотвод
+            </summary>
+            <returns></returns>
+            <response code="200">R002 Отговор за регистриране на отвод/самоотвод</response>
+            <response code="400">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="401">Unauthorized</response>
+            <response code="403">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="500">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+        </member>
+        <member name="M:EPRO.Api.Controllers.DismissalController.DismissalUpdate(EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest)">
+            <summary>
+            Заявка за корекция на данни за отвод/самоотвод
+            </summary>
+            <returns></returns>
+            <response code="200">R005 Отговор за регистриране на отвод/самоотвод</response>
+            <response code="400">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="401">Unauthorized</response>
+            <response code="403">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="500">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+        </member>
+        <member name="M:EPRO.Api.Controllers.DismissalController.ReplaceUpdate(EPRO.Infrastructure.Data.DataContracts.ReplaceDismissalRequest)">
+            <summary>
+            Заявка за регистриране на данни за нов съдия при отвод/самоотвод 
+            </summary>
+            <returns></returns>
+            <response code="200">R005 Отговор за регистриране на отвод/самоотвод</response>
+            <response code="400">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="401">Unauthorized</response>
+            <response code="403">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="500">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+        </member>
+        <member name="M:EPRO.Api.Controllers.DismissalController.ActUpdate(EPRO.Infrastructure.Data.DataContracts.ActPublicationRequest)">
+            <summary>
+            Заявка за изпращане на обезличен файл на съдебен акт 
+            </summary>
+            <returns></returns>
+            <response code="200">R005 Отговор за регистриране на отвод/самоотвод</response>
+            <response code="400">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="401">Unauthorized</response>
+            <response code="403">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+            <response code="500">CL099 Съобщение за грешка в отговор на заявка от всеки тип</response>
+        </member>
+        <member name="T:EPRO.Api.Extensions.IOWebAppServiceCollectionExtension">
+            <summary>
+            Описва услугите и контекстите на приложението
+            </summary>
+        </member>
+        <member name="M:EPRO.Api.Extensions.IOWebAppServiceCollectionExtension.AddApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Регистрира услугите на приложението в  IoC контейнера
+            </summary>
+            <param name="services">Регистрирани услуги</param>
+        </member>
+        <member name="M:EPRO.Api.Extensions.IOWebAppServiceCollectionExtension.AddApplicationDbContext(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Регистрира контекстите на приложението в IoC контейнера
+            </summary>
+            <param name="services">Регистрирани услуги</param>
+            <param name="Configuration">Настройки на приложението</param>
+        </member>
+        <member name="T:EPRO.Api.Filters.ApplyTagDescriptions">
+            <summary>
+            Филтър за добавяне на коментар към контролер в OpenApi
+            </summary>
+        </member>
+        <member name="M:EPRO.Api.Filters.ApplyTagDescriptions.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Добавя коментар в контролерите
+            </summary>
+            <param name="swaggerDoc">Документ, съдържащ документацията</param>
+            <param name="context">Контекст на заявката</param>
+        </member>
+    </members>
+</doc>

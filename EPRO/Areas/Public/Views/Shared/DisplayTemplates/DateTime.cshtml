@@ -1,0 +1,12 @@
+﻿@model DateTime?
+@{
+    var val = "";
+    if (Model.HasValue)
+    {
+        val = Model.Value.ToString("dd.MM.yyyy");
+    }
+}
+<div class="tr">
+    <div class="lbl">@Html.LabelFor(x => x):</div>
+    <div class="vl">@Html.Raw(val)</div>
+</div>

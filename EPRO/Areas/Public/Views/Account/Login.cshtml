@@ -1,0 +1,74 @@
+﻿@using EPRO.Infrastructure.Data.Models.Identity
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@model LoginVM
+@{
+    ViewData["Title"] = "ЕПРО | Вход";
+    ViewData["menu"] = "login";
+}
+
+<section class="section-content">
+    @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+    {
+        <div class="search-panel-login clearfix">
+
+            <div class="title">
+                <span>Вход в</span>
+                <strong>системата</strong>
+                <img src="~/img/login-locker.png" class="login-locker" alt="Вход в системата" />
+            </div>
+            <div class="login-button">
+                <form id="external-account" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-validate ">
+                    <div class="">
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+
+                            <button type="submit" class="btn kep-login-button" name="provider" value="@provider.Name" title="Вход с @provider.DisplayName">ВХОД С @provider.DisplayName.ToUpper()</button>
+
+                        }
+                        @if (ViewBag.errorMessage != null)
+                        {
+                            <div class="row section-content justify-content-md-center login-error-msg">
+                                <h5 class="text-danger">@ViewBag.errorMessage</h5>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+
+</section>
+
+@*<section class="section-content">
+        @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+        {
+            <div class="search-panel-login clearfix">
+                <div class="title">
+                    <span>Вход в</span>
+                    <strong>системата</strong>
+                    <img src="~/img/login-locker.png" class="login-locker" alt="Вход в системата"/>
+                </div>
+                <div class="search-form-wrapper">
+                    <form id="external-account" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-validate search-form">
+                        <div class="row section-content justify-content-md-center">
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+
+                                <button type="submit" class="btn col-md-12 kep-login-button" name="provider" value="@provider.Name" title="Вход с @provider.DisplayName">ВХОД С @provider.DisplayName.ToUpper()</button>
+
+                            }
+                            @if (ViewBag.errorMessage != null)
+                            {
+                                <div class="row section-content justify-content-md-center login-error-msg">
+                                    <h5 class="text-danger">@ViewBag.errorMessage</h5>
+                                </div>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+
+    </section>*@

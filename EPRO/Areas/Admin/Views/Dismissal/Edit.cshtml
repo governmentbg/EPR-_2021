@@ -1,0 +1,193 @@
+﻿@model EPRO.Infrastructure.Data.Models.Common.Dismissal
+
+@{
+    if (!string.IsNullOrEmpty(Model.Id))
+    {
+        ViewData["Title"] = "Редакция на отвод";
+    }
+    else
+    {
+        ViewData["Title"] = "Добавяне на отвод";
+    }
+    bool canChange = (bool)ViewBag.canChange;
+    bool canRecover = (bool)ViewBag.canRecover;
+}
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-6">
+            @if (Model.DateExpired != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    Отводът е деактивиран.
+                    <br />
+                    <p>@Model.DescriptionExpired</p>
+                </div>
+            }
+            <fieldset>
+                <legend>Основни данни</legend>
+                @Html.HiddenFor(x => x.Id)
+                @if (canChange)
+                {
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.EditorFor(x => x.CourtId, "GenericSelect2")
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.DisplayFor(x => x.CourtId, "objFromCombo")
+                }
+                <div class="row">
+                    <div class="col-lg-6">
+                        @Html.EditorFor(x => x.DismissalTypeId, "GenericDropDown")
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.EditorFor(x => x.CaseTypeId, "GenericDropDown")
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        @Html.EditorFor(x => x.CaseNumber)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.EditorFor(x => x.DismissalReason)
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="fsDocument">
+                <legend>Искане за отвод</legend>
+                <div class="row">
+                    <div class="col-lg-4">
+                        @Html.EditorFor(x => x.DocumentType)
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.EditorFor(x => x.DocumentNumber, "Int32Nullable")
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.EditorFor(x => x.DocumentDate, "DateTime")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.EditorFor(x => x.SideInvolmentKind)
+                    </div>
+
+                </div>
+                @Html.EditorFor(x => x.SideFullName)
+                @Html.EditorFor(x => x.ObjectionUpheld)
+            </fieldset>
+            @if (Model.EntryType == NomenclatureConstants.EntryType.API)
+            {
+                @Html.EditorFor(x => x.EditMotives)
+            }
+        </div>
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Съдия</legend>
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.EditorFor(x => x.CaseRoleId, "GenericDropDown")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.EditorFor(x => x.JudgeFullName)
+                    </div>
+                </div>
+                @Html.EditorFor(x => x.JudgeIsChairman, "Boolean")
+            </fieldset>
+            <fieldset>
+                <legend>Нов съдия</legend>
+                @Html.EditorFor(x => x.ReplaceJudgeFullName)
+
+                @Html.EditorFor(x => x.ReplaceJudgeIsChairman, "Boolean")
+
+            </fieldset>
+            <fieldset>
+                <legend>Решение за отвод/самоотвод</legend>
+                <div class="row">
+                    <div class="col-lg-6">
+                        @Html.EditorFor(x => x.HearingTypeId, "GenericDropDown")
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.EditorFor(x => x.HearingDate, "DateTime")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        @Html.EditorFor(x => x.ActTypeId, "GenericDropDown")
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.EditorFor(x => x.ActNumber)
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.EditorFor(x => x.ActDeclaredDate, "DateTime")
+                    </div>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.Id))
+                {
+                    var editMode = "replace";
+                    if (Model.EntryType == NomenclatureConstants.EntryType.API || Model.DateExpired != null)
+                    {
+                        editMode = "none";
+                    }
+                    <div class="cdn-files" data-editmode="@editMode" data-sourcetype="@NomenclatureConstants.SourceType.Dismissal" data-sourceid="@Model.Id"></div>
+                }
+            </fieldset>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                @if (canChange)
+                {
+                    <input type="submit" value="Запис" class="btn btn-success" />
+                }
+                <a asp-action="Index" class="btn btn-danger">Назад</a>
+                <div class="float-right">
+                    @if (!string.IsNullOrEmpty(Model.Id))
+                    {
+                        <a asp-action="Print" asp-route-id="@Model.Id" class="btn btn-primary">Печат</a>
+                    }
+                    &nbsp;
+                    @if (canRecover && Model.DateExpired == null)
+                    {
+
+                        <a href="#" data-modal-url="@Url.Action("Expire", new { id = Model.Id })" data-modal-title="Премахване на отвод" class="btn btn-danger modal-loader" title="Премахване на отвода"><i class="far fa-trash-alt"></i></a>
+
+                    }
+                    @if (canRecover && Model.DateExpired != null)
+                    {
+
+                        <a href="#" data-modal-url="@Url.Action("Recover", new { id = Model.Id })" data-modal-title="Възстановяване на отвод" class="btn btn-warning modal-loader" title="Възстановяване на отвода"><i class="fas fa-recycle"></i></a>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        $('#DismissalTypeId').change(function () {
+            if ($(this).val() == @NomenclatureConstants.DismissalTypes.SamoOtvod) {
+                $('#fsDocument').hide();
+
+            } else {
+                $('#fsDocument').show();
+            }
+        }).trigger('change');
+
+    });
+</script>
+<partial name="_CdnScriptSingle" />
+
+

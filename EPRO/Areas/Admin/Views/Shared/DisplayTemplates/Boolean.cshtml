@@ -1,0 +1,12 @@
+﻿@model bool
+<div class="form-group">
+    @if (Model)
+    {
+        <i class="far fa-check-square"></i>
+    }
+    else
+    {
+        <i class="far fa-square"></i>
+    }
+    <label asp-for="@Model" class="control-label"></label>
+</div>

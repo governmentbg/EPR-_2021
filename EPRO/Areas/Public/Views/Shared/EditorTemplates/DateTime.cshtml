@@ -1,0 +1,2 @@
+﻿@model DateTime?
+<input asp-for="@Model" type="text" class="epro-dtp form-control" autocomplete="off" value="@(Model.HasValue && Model.Value > DateTime.MinValue ? Model.Value.ToString("dd.MM.yyyy") : String.Empty)" />

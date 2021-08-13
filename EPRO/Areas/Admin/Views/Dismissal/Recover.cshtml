@@ -1,0 +1,26 @@
+﻿@model DismissalManageVM
+<form action="@Url.Action("Recover")" id="frmAjax" method="post">
+    @Html.HiddenFor(x => x.DismissalId)
+    @Html.EditorFor(x => x.Reason)
+    <input type="submit" class="btn btn-warning" value="Възстанови" id="btnSubmit" />
+</form>
+
+<script>
+    $(function () {
+        $('form#frmAjax').ajaxForm({
+            beforeSend: function () {
+                $('#btnSubmit').hide();
+            },
+            complete: function (xhr) {
+                $('#btnSubmit').show();
+                if (xhr.responseJSON.result) {
+                    messageHelper.ShowSuccessMessage("Възстановяването на отвода премина успешно.");
+                    HideModalDialog();
+                    document.location.href = document.location.href;
+                } else {
+                    swalOk(xhr.responseJSON.errorMessage);
+                }                
+            }
+        });
+    });
+</script>

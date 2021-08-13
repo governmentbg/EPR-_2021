@@ -1,0 +1,11 @@
+﻿@model int?
+@using EPRO.Core.Extensions
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(".", "_") + "_ddl";
+
+    var ddl = (List<SelectListItem>)ViewData[fieldName] ?? new List<SelectListItem>();
+}
+
+<div class="col">
+    @Html.DropDownListFor(model => model, ddl.SetSelected(Model), new { @class = "select2" })
+</div>

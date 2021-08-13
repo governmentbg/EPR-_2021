@@ -1,0 +1,159 @@
+﻿@model EPRO.Infrastructure.ViewModels.Common.DismissalPrintVM
+@{
+    Layout = null;
+}
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+        table td {
+            padding: 3px 5px;
+        }
+</style>
+
+<center><h3>@Model.DismissalTypeName</h3></center>
+
+<table width="100%" border="1">
+    <tr>
+        <td colspan="2" align="center">
+            <br />
+            <h4>Основни данни</h4>
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            @Html.LabelFor(x => x.Data.CourtId)
+        </td>
+        <td>
+            @Model.CourtName
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            <label>Дело</label>
+        </td>
+        <td>
+            @($"{Model.CaseTypeName} No {Model.Data.CaseNumber} от {Model.Data.CaseYear}")
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            @Html.LabelFor(x => x.Data.DismissalReason)
+        </td>
+        <td>
+            @Model.Data.DismissalReason
+        </td>
+    </tr>
+    @if (Model.Data.DismissalTypeId == NomenclatureConstants.DismissalTypes.Otvod)
+    {
+        <tr>
+            <td colspan="2" align="center">
+                <br />
+                <h4>Искане за отвод</h4>
+            </td>
+        </tr>
+        <tr>
+            <td width="40%">
+                <label>Входящ документ</label>
+            </td>
+            <td>
+                @($"{Model.Data.DocumentType} No {Model.Data.DocumentNumber} от {Model.Data.DocumentDate:dd.MM.yyyy} г.")
+            </td>
+        </tr>
+        <tr>
+            <td width="40%">
+                <label>Страна</label>
+            </td>
+            <td>
+                @($"{Model.Data.SideFullName} ({Model.Data.SideInvolmentKind})")
+            </td>
+        </tr>
+        <tr>
+            <td width="40%">
+                @Html.LabelFor(x => x.Data.ObjectionUpheld)
+            </td>
+            <td>
+                @if (Model.Data.ObjectionUpheld)
+                {
+                    <text>Да</text>
+                }
+                else
+                {
+                    <text>Не</text>
+                }
+            </td>
+        </tr>
+    }
+
+    <tr>
+        <td width="40%">
+            <label>Съдия</label>
+        </td>
+        <td>
+            @if (Model.Data.JudgeIsChairman)
+            {
+                @($"{Model.Data.JudgeFullName} ({Model.CaseRoleName} - председател на състава)")
+            }
+            else
+            {
+                @($"{Model.Data.JudgeFullName} ({Model.CaseRoleName})")
+            }
+        </td>
+    </tr>
+    @if (!string.IsNullOrEmpty(Model.Data.ReplaceJudgeFullName))
+    {
+        <tr>
+            <td width="40%">
+                <label>Нов съдия</label>
+            </td>
+            <td>
+                @if (Model.Data.ReplaceJudgeIsChairman)
+                {
+                    @($"{Model.Data.ReplaceJudgeFullName} (председател на състава)")
+                }
+                else
+                {
+                    @($"{Model.Data.ReplaceJudgeFullName}")
+                }
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="2" align="center">
+            <br />
+            <h4>Решение за отвод/самоотвод</h4>
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            <label>Заседание</label>
+        </td>
+        <td>
+            @($"{Model.HearingTypeName} от {Model.Data.HearingDate:dd.MM.yyyy} г.")
+        </td>
+    </tr>
+    <tr>
+        <td width="40%">
+            <label>Съдебен акт</label>
+        </td>
+        <td>
+            @($"{Model.ActTypeName} No {Model.Data.ActNumber}, постановен на  {Model.Data.ActDeclaredDate:dd.MM.yyyy} г.")
+        </td>
+    </tr>
+    @if (!string.IsNullOrEmpty(Model.ActFileName))
+    {
+        <tr>
+            <td width="40%">
+                <label>Съдържание на акта</label>
+            </td>
+            <td>
+                @Model.ActFileName
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<br />
+<br />
+<span style="font-size:8pt;">Забележка: Данните са актуални към @(DateTime.Now.ToString("dd.MM.yyyy г. HH:mm:ss"))</span>

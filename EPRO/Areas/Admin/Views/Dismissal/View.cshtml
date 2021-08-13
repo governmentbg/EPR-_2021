@@ -1,0 +1,107 @@
+﻿@model EPRO.Infrastructure.Data.Models.Common.Dismissal
+@{
+
+    ViewData["Title"] = "Преглед на отвод";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <fieldset>
+            <legend>Основни данни</legend>
+
+            @Html.DisplayFor(x => x.CourtId, "objFromCombo")
+
+            <div class="row">
+                <div class="col-lg-6">
+                    @Html.DisplayFor(x => x.DismissalTypeId, "objFromCombo")
+                </div>
+                <div class="col-lg-6">
+                    @Html.DisplayFor(x => x.CaseTypeId, "objFromCombo")
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    @Html.DisplayFor(x => x.CaseNumber, "obj")
+                </div>
+                <div class="col-lg-6">
+                    @Html.DisplayFor(x => x.CaseYear, "obj")
+                </div>
+            </div>
+            @Html.DisplayFor(x => x.DismissalReason, "obj")
+        </fieldset>
+        @if (Model.DismissalTypeId == NomenclatureConstants.DismissalTypes.Otvod)
+        {
+            <fieldset>
+                <legend>Искане за отвод</legend>
+                <div class="row">
+                    <div class="col-lg-4">
+                        @Html.DisplayFor(x => x.DocumentType, "obj")
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.DisplayFor(x => x.DocumentNumber, "obj")
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.DisplayFor(x => x.DocumentDate, "DateTime")
+                    </div>
+                </div>
+                @Html.DisplayFor(x => x.SideInvolmentKind, "obj")
+                @Html.DisplayFor(x => x.SideFullName, "obj")
+                @Html.DisplayFor(x => x.ObjectionUpheld)
+            </fieldset>
+        }
+        @if (Model.EntryType == NomenclatureConstants.EntryType.API)
+        {
+            @Html.DisplayFor(x => x.DateWrt, "DateTime")
+        }
+        <div class="form-group">
+            <a asp-action="Index" class="btn btn-danger">Назад</a>
+            <div class="float-right">
+                <a asp-action="Print" asp-route-id="@Model.Id" class="btn btn-primary">Печат</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <fieldset>
+            <legend>Съдия</legend>
+            @Html.DisplayFor(x => x.CaseRoleId, "objFromCombo")
+            @Html.DisplayFor(x => x.JudgeFullName, "obj")
+            @Html.DisplayFor(x => x.JudgeIsChairman, "Boolean")
+        </fieldset>
+        <fieldset>
+            <legend>Нов съдия</legend>
+            @Html.DisplayFor(x => x.ReplaceJudgeFullName, "obj")
+            @Html.DisplayFor(x => x.ReplaceJudgeIsChairman, "Boolean")
+        </fieldset>
+        <fieldset>
+            <legend>Решение за отвод/самоотвод</legend>
+            <div class="row">
+                <div class="col-lg-6">
+                    @Html.DisplayFor(x => x.HearingTypeId, "objFromCombo")
+                </div>
+                <div class="col-lg-6">
+                    @Html.DisplayFor(x => x.HearingDate, "DateTime")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    @Html.DisplayFor(x => x.ActTypeId, "objFromCombo")
+                </div>
+                <div class="col-lg-4">
+                    @Html.DisplayFor(x => x.ActNumber, "obj")
+                </div>
+                <div class="col-lg-4">
+                    @Html.DisplayFor(x => x.ActDeclaredDate, "DateTime")
+                </div>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.Id))
+            {
+                <div class="cdn-files" data-sourcetype="@NomenclatureConstants.SourceType.Dismissal" data-sourceid="@Model.Id"></div>
+            }
+        </fieldset>
+    </div>
+
+</div>
+
+<partial name="_CdnScriptSingle" />
+

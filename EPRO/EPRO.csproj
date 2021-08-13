@@ -1,0 +1,125 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-EPRO-90887530-042D-427B-9DD7-D22449122EEE</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="IdStampITAuthentication" Version="3.1.0" />
+    <PackageReference Include="IO.DataTables.AspNetCore" Version="3.1.1" />
+    <PackageReference Include="IO.LogOperation" Version="1.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.12" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.1.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\EPRO.Core\EPRO.Core.csproj" />
+    <ProjectReference Include="..\EPRO.Infrastructure\EPRO.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="ModelBinders\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\public\css\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\public\css\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\public\css\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\public\css\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\public\css\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\public\css\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.js.map" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\public\css\bootstrap\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\public\icons\safari-pinned-tab.svg" />
+    <None Include="wwwroot\public\icons\site.webmanifest" />
+    <None Include="wwwroot\public\js\dtpckr\dtpckr.js" />
+    <None Include="wwwroot\public\js\jquery.js" />
+    <None Include="wwwroot\public\js\main.js" />
+    <None Include="wwwroot\public\js\plupload\colorin.js" />
+    <None Include="wwwroot\public\js\plupload\parse.js" />
+    <None Include="wwwroot\public\js\plupload\plupload.full.min.js" />
+    <None Include="wwwroot\public\js\plupload\plupload.js" />
+    <None Include="wwwroot\public\js\plupload\plupload.js.no-settings" />
+    <None Include="wwwroot\public\js\validator.js" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="wwwroot\public\css\public.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltoimage">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltoimage.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltopdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\bin\wkhtmltoimage">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\bin\wkhtmltopdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\include\wkhtmltox\dllbegin.inc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\include\wkhtmltox\dllend.inc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\include\wkhtmltox\image.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\include\wkhtmltox\pdf.h">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\lib\libwkhtmltox.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\lib\libwkhtmltox.so.0">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\lib\libwkhtmltox.so.0.12">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\lib\libwkhtmltox.so.0.12.4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\share\man\man1\wkhtmltoimage.1.gz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Rotativa\wkhtmltox\share\man\man1\wkhtmltopdf.1.gz">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

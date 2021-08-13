@@ -1,0 +1,411 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EPRO.Core</name>
+    </assembly>
+    <members>
+        <member name="F:EPRO.Core.Constants.FormatConstant.DateFormat">
+            <summary>
+            Formatting of date dd.MM.yyyy - HH:mm:ss;
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.FormatConstant.NormalDateFormat">
+            <summary>
+            Formatting of date dd.MM.yyyy;
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.FormatConstant.NormalTimeFormat">
+            <summary>
+            Formatting time to HH:mm
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.FormatConstant.DecimalValueFormat">
+            <summary>
+            Formatting decimal to #00.00
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.FormatConstant.IntValueFormat">
+            <summary>
+            Formatting decimal to #00
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.MessageConstant.ErrorMessage">
+            <summary>
+            Грешка
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.MessageConstant.WarningMessage">
+            <summary>
+            Внимание
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.MessageConstant.SuccessMessage">
+            <summary>
+            Успех
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.MessageConstant.NotSelected">
+            <summary>
+            Не е избран (за Display Template-ите)
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.MessageConstant.Yes">
+            <summary>
+            Да (за Display Template-ите)
+            </summary>
+        </member>
+        <member name="F:EPRO.Core.Constants.MessageConstant.No">
+            <summary>
+            Не (за Display Template-ите)
+            </summary>
+        </member>
+        <member name="T:EPRO.Core.Contracts.IAccountService">
+            <summary>
+            Услуга за управление на потребители
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IAccountService.GetByUIC(System.String)">
+            <summary>
+            Извличане на потребител по ЕГН
+            </summary>
+            <param name="uic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IAccountService.Select(System.String)">
+            <summary>
+            Списък на регистрирани потребители
+            </summary>
+            <param name="fullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IAccountService.CheckUser(EPRO.Infrastructure.ViewModels.Account.AccountVM)">
+            <summary>
+            Валидиране на данни при регистриране на потребител
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IAccountService.GenerateApiKeys">
+            <summary>
+            Тестова услуга за създаване на кодове за достъп
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Core.Contracts.IApiService">
+            <summary>
+            Услуга за запис на данни за отводи, постъпили през API услуга
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IApiService.Insert(EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest)">
+            <summary>
+            Регистриране на отвод
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IApiService.Update(EPRO.Infrastructure.Data.DataContracts.DismissalRegistrationRequest)">
+            <summary>
+            Актуализация на отвод
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IApiService.ReplaceUpdate(EPRO.Infrastructure.Data.DataContracts.ReplaceDismissalRequest,System.String)">
+            <summary>
+            Актуализация на нов съдия
+            </summary>
+            <param name="model"></param>
+            <param name="courtCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IApiService.DismissalActUpdate(EPRO.Infrastructure.Data.DataContracts.ActPublicationRequest)">
+            <summary>
+            Актуализация на файл на акт по отвод
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Core.Contracts.IAuditLogService">
+            <summary>
+            Услуга за управление на журнал на промените
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IAuditLogService.SaveAuditLog(System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Регистриране на ново събитие в журнала
+            </summary>
+            <param name="courtId">id на съд</param>
+            <param name="operation">Вид операция</param>
+            <param name="objectInfo">Данни за операцията</param>
+            <param name="clientIp">IP адрес на заявителя на данни</param>
+            <param name="requestUrl">Адрес на търсения ресурс</param>
+            <param name="actionInfo">Допълнителна информация</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IAuditLogService.Select(EPRO.Core.Models.AuditLogFilterVM)">
+            <summary>
+            Извлича данни от журнала по подадения филтър
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Core.Contracts.IBaseService">
+            <summary>
+            Базова услуга за достъп до базата данни
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IBaseService.GetById``1(System.Object)">
+            <summary>
+            Извлича данни за един обект по идентификатор
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Core.Contracts.IDismissalService">
+            <summary>
+            Услуга за управление на отводи
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IDismissalService.Select(EPRO.Core.Models.FilterModels.DismissalFilterVM)">
+            <summary>
+            Данни за отводи - оперативен регистър
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IDismissalService.SelectReport(EPRO.Core.Models.FilterModels.ReportFilterVM)">
+            <summary>
+            Данни за отводи - справка за отводи
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IDismissalService.SaveDataAsync(EPRO.Infrastructure.Data.Models.Common.Dismissal)">
+            <summary>
+            Запис на данни за отвод
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IDismissalService.Get_DDLYearsAsync(System.Boolean)">
+            <summary>
+            Връща падащо меню с години за подадени отводи
+            </summary>
+            <param name="forEdit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IDismissalService.ExpireAsync(EPRO.Core.Models.DismissalManageVM)">
+            <summary>
+            Анулиране на данни за отвод
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.IDismissalService.RecoverAsync(EPRO.Core.Models.DismissalManageVM)">
+            <summary>
+            Възстановяване на данни за отвод
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Core.Contracts.INomenclatureService">
+            <summary>
+            Общи номенклатури
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.GetList``1">
+            <summary>
+            Списък за показване в таблица, всички елементи
+            </summary>
+            <typeparam name="T">Тип на номенклатурата</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.GetActiveList``1">
+            <summary>
+            ЛСписък за показване в таблица, само активни елементи
+            </summary>
+            <typeparam name="T">Тип на номенклатурата</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.GetItem``1(System.Int32)">
+            <summary>
+            Конкретен елемент от номенклатура
+            </summary>
+            <typeparam name="T">Тип на номенклатурата</typeparam>
+            <param name="id">Идентификатор на запис</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.SaveItem``1(``0)">
+            <summary>
+            Запис на елемент от номенклатура
+            </summary>
+            <typeparam name="T">Тип на номенклатурата</typeparam>
+            <param name="entity">Елемент за запис</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.ChangeOrder``1(EPRO.Core.Models.Nomenclatures.ChangeOrderModel)">
+            <summary>
+            Промяна на подредбата с бутони
+            </summary>
+            <typeparam name="T">Тип на номенклатурата</typeparam>
+            <param name="model">Посока и идентификатор на запис</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.GetDropDownList``1(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Генерира списък от елементи на номенклатура за комбо
+            </summary>
+            <typeparam name="T">Тип на номенклатурата</typeparam>
+            <param name="addDefaultElement">Дали да добави елемент "Изберете"
+            по подразбиране е изтина</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.GetCourtsByRegion(System.Int32)">
+            <summary>
+            Списък на съдилища по апелативен район
+            </summary>
+            <param name="regionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.GetLabelById``1(System.Int32)">
+            <summary>
+            Връща етикет на обекта от обща номенклатура по подаден идентификатор
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Contracts.INomenclatureService.ValidateCaseNumber(System.String,System.Int32,System.Int32)">
+            <summary>
+            Валидация на формат номер на дело
+            </summary>
+            <param name="caseNumber"></param>
+            <param name="courtId"></param>
+            <param name="caseYear"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EPRO.Core.Extensions.LinqExtension">
+            <summary>
+            Разширения на методите на LINQ
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Extensions.LinqExtension.SetSelected``1(System.Collections.Generic.IEnumerable{``0},System.Object)">
+            <summary>
+            Маркира определен елемент, като избран
+            </summary>
+            <typeparam name="TSource">Тип на колекцията</typeparam>
+            <param name="source">Изходна колекция</param>
+            <param name="selected">Елемент, който да бъде избран</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Extensions.LinqExtension.AddAllItem(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.String)">
+            <summary>
+            Добавя "Изберете" в SelectList, 
+            стойността му по подразбиране е -1
+            </summary>
+            <param name="source">Изходна колекция</param>
+            <param name="allText">Текст, по подразбиране "Изберете"</param>
+            <param name="allValue">Стойност, по подразбиране -1</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Extensions.LinqExtension.AppendItem(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.String)">
+            <summary>
+            Добавяне на елемент
+            </summary>
+            <param name="source">Изходна колекция</param>
+            <param name="Text">Име на елемента</param>
+            <param name="Value">Стойност на елемента</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Extensions.LinqExtension.IsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Проверява, дали колекцията е празна
+            </summary>
+            <typeparam name="T">Тип на колекцията</typeparam>
+            <param name="source">Изходна колекция</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Extensions.LinqExtension.Like``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String)">
+            <summary>
+            Търси съвпадение в текст в базата данни, case sensitive 
+            </summary>
+            <typeparam name="T">Тип на таблицата от базата</typeparam>
+            <param name="source">Колекция от данни</param>
+            <param name="property">Колона с която сравняваме</param>
+            <param name="query">Търсен текст</param>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Extensions.LinqExtension.LikeCI``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.String)">
+            <summary>
+            Търси съвпадение в текст в базата данни, case insensitive 
+            </summary>
+            <typeparam name="T">Тип на таблицата от базата</typeparam>
+            <param name="source">Колекция от данни</param>
+            <param name="property">Колона с която сравняваме</param>
+            <param name="query">Търсен текст</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:EPRO.Core.Extensions.NomenclatureExtensions.ToSelectList(System.Linq.IQueryable{EPRO.Infrastructure.Contracts.ICommonNomenclature},System.Boolean,System.Boolean,System.Boolean)" -->
+        <member name="M:EPRO.Core.Extensions.StringExtensions.IsEGN(System.String,System.Boolean)">
+            <summary>
+            Check value is EGN
+            </summary>
+            <param name="EGN">string</param>
+            <returns>string</returns>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.Id">
+            <summary>
+            Идентификатор на запис
+            </summary>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.Code">
+            <summary>
+            Код
+            </summary>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.Label">
+            <summary>
+            Текст за визуализация
+            </summary>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.Description">
+            <summary>
+            Описание
+            </summary>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.OrderNumber">
+            <summary>
+            Пореден номер
+            </summary>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.IsActive">
+            <summary>
+            Дали записа е активен
+            </summary>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.DateStart">
+            <summary>
+            Начало на периода на валидност
+            </summary>
+        </member>
+        <member name="P:EPRO.Core.Models.Nomenclatures.CommonNomenclatureListItem.DateEnd">
+            <summary>
+            Край на периода на валидност
+            Ако е NULL, е валидна след начална дата
+            </summary>
+        </member>
+        <member name="M:EPRO.Core.Services.AccountService.GenerateApiKeys">
+            <summary>
+            Този метод създава ключове за всички съдилища
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EPRO.Core.Services.AccountService.GenerateRandomBytes(System.Int32)">
+            <summary>
+            Generate a cryptographically secure array of bytes with a fixed length
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

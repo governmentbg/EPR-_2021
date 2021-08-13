@@ -1,0 +1,165 @@
+﻿@model DismissalFilterVM
+@using EPRO.Core.Models.FilterModels
+@{
+    ViewData["Title"] = "Регистър на отводите";
+    var canChange = (bool)ViewBag.canChange;
+}
+
+<fieldset class="filter-form">
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CourtId, "GenericSelect2")
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.JudgeName)
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.DismissalTypeId, "GenericDropDown")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CaseTypeId, "GenericDropDown")
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CaseNumber)
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.CaseYear, "GenericDropDown")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.PeriodFrom, "DateTime")
+        </div>
+        <div class="col-lg-4">
+            @Html.EditorFor(x => x.PeriodTo, "DateTime")
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group min-hgt-30">
+                <a href="#" class="btn btn-primary bottom-left" onclick="loadData(); return false;">Търсене</a>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+@if (canChange)
+{
+    <div class="row">
+        <div class="col-md-12 text-right pb-15">
+            <a asp-action="Add" class="btn btn-success">
+                <i class="fa fa-plus"></i>
+                Добави отвод
+            </a>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <table id="mainTable" class="table table-hover table-striped"></table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        
+        function loadData() {
+            if (!checkFilterFormHasData('.filter-form')) {
+                swalOk('Въведете стойност в поне един филтър.', function () { });
+                return false;
+            }
+
+            if ($.fn.dataTable.isDataTable('#mainTable')) {
+                refreshTable('#mainTable');
+            }
+            else {
+                var table = $('#mainTable').DataTable({
+                    ajax: {
+                        "url": "@Url.Action("ListData")",
+                        "type": "POST",
+                        "datatype": "json",
+                        data: function (d) {
+                            d.filter = {
+                                CourtId: $('#CourtId').val(),
+                                JudgeName: $('#JudgeName').val(),
+                                DismissalTypeId: $('#DismissalTypeId').val(),
+                                CaseTypeId: $('#CaseTypeId').val(),
+                                CaseNumber: $('#CaseNumber').val(),
+                                CaseYear: $('#CaseYear').val(),
+                                PeriodFrom: $('#PeriodFrom').val(),
+                                PeriodTo: $('#PeriodTo').val()
+                            }
+                        }
+                    },
+                    filter:false,
+                    columns: [
+                        {
+                            name: 'judgeName',
+                            data: 'judgeName',
+                            title: 'Съдия',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'dismissalTypeName',
+                            data: 'dismissalTypeName',
+                            title: 'Вид отвод',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'courtName',
+                            data: 'courtName',
+                            title: 'Орган на съдебната власт',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'caseNumber',
+                            data: 'caseNumber',
+                            title: 'Дело №',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'caseTypeName',
+                            data: 'caseTypeName',
+                            title: 'Вид дело',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'replaceJudgeName',
+                            data: 'replaceJudgeName',
+                            title: 'Нов съдия',
+                            sortable: true,
+                            searchable: true
+                        },
+                        {
+                            name: 'actions',
+                            data: null,
+                            title: "",
+                            sortable: false,
+                            searchable: false,
+                            width: 120,
+                            className: "text-center noExport",
+                            "render": function (a, b, item, c) {
+                                if (item.entryType != @(NomenclatureConstants.EntryType.User) || @((!canChange).ToString().ToLower())){
+                                    return TemplateToHtml('#templateView', item .id);
+                                } else {
+                                    return TemplateToHtml('#templateEdit', item.id);
+                                }
+                            }
+                        }
+                    ]
+                });
+            }
+        }
+    </script>
+    <script id="templateEdit" type="text/x-handlebars-template">
+        <a href="@Url.Action("Edit")/{{this}}" class="btn btn-warning btn-sm" title="Редакция"><i class="fa fa-edit"></i><span class="d-none d-lg-inline"> Редакция</span></a>
+    </script>
+    <script id="templateView" type="text/x-handlebars-template">
+        <a href="@Url.Action("View")/{{this}}" class="btn btn-info btn-sm" title="Преглед"><i class="fa fa-search"></i><span class="d-none d-lg-inline"> Преглед</span></a>
+    </script>
+}

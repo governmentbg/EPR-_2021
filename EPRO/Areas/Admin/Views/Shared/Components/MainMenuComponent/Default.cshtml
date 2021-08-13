@@ -1,0 +1,72 @@
+﻿@model string
+@using EPRO.Infrastructure.Constants
+@inject EPRO.Infrastructure.Contracts.IUserContext userContext
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column nav-flat text-sm" data-widget="treeview" role="menu" data-accordion="false">
+        <menulistitem menu="dismissal" class="nav-item">
+            <a href="@Url.Action("Index", "Dismissal")" class="nav-link">
+                <i class="nav-icon far fa-newspaper"></i>
+                <p>
+                    Отводи
+                </p>
+            </a>
+        </menulistitem>
+        @if (userContext.IsUserInRole(AccountConstants.Roles.ADMIN) || userContext.IsUserInRole(AccountConstants.Roles.GLOBAL_ADMIN))
+        {
+            <menulistitem menu="report" class="nav-item">
+                <a href="@Url.Action("Report", "Dismissal")" class="nav-link">
+                    <i class="nav-icon far fa-newspaper"></i>
+                    <p>
+                        Справка
+                    </p>
+                </a>
+            </menulistitem>
+
+            <li class="nav-item has-treeview dropdown menu-open">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-cog"></i>
+                    <p>
+                        Номенклатури
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <menulistitem menu="auditLog" class="nav-item">
+                        <a href="@Url.Action("AuditLog", "Account")" class="nav-link">
+                            <i class="nav-icon fas fa-exchange-alt"></i>
+                            <p>
+                                Журнал на промените
+                            </p>
+                        </a>
+                    </menulistitem>
+                    <li class="delimiter"></li>
+                    <menulistitem menu="users" class="nav-item">
+                        <a href="@Url.Action("Index", "Account")" class="nav-link">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Потребители
+                            </p>
+                        </a>
+                    </menulistitem>
+                </ul>
+            </li>
+        }
+    </ul>
+</nav>
+<script>
+    $(function () {
+        var currentMenuItem = '@ViewBag.MenuItemValue';
+        if (currentMenuItem.length > 0) {
+            var menuItem = $('ul.nav-sidebar li[data-menuitem="' + currentMenuItem + '"] a.nav-link:first');
+            menuItem.addClass('active');
+            var parent = menuItem.parents('li.has-treeview:first');
+
+            if (parent) {
+                parent.addClass('menu-open');
+                parent.find('a.nav-link:first').addClass('active');
+                parent.find('ul.nav-treeview').show();
+            }
+
+        }
+    });
+</script>

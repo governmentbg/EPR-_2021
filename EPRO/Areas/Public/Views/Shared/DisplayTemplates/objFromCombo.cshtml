@@ -1,0 +1,17 @@
+﻿@model int?
+@using EPRO.Core.Extensions
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix.Replace(".", "_") + "_ddl";
+
+    var modelValue = "";
+    if (ViewData[fieldName] != null)
+    {
+        var ddl = (List<SelectListItem>)ViewData[fieldName];
+        modelValue = ddl?.Where(x => x.Value == Model?.ToString()).Select(x => x.Text).FirstOrDefault();
+    }
+}
+<div class="tr">
+    <div class="lbl">@Html.LabelFor(x => x):</div>
+    <div class="vl">@Html.Raw(modelValue)</div>
+</div>
+

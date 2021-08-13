@@ -1,0 +1,53 @@
+﻿@using EPRO.Infrastructure.ViewModels.Cdn
+@model CdnUploadRequest
+<form action="@Url.Action("UploadFile", "Files")" id="cdnUploadFile" method="post" enctype="multipart/form-data">
+    @Html.HiddenFor(x => x.SourceId)
+    @Html.HiddenFor(x => x.SourceType)
+    @Html.HiddenFor(x => x.FileContainer)
+    @Html.HiddenFor(x => x.MaxFileSize)
+    <div class="text-info">Ако вече има зареден файл за съдебен акт, той ще бъде подменен от новия прикачен файл.</div>
+    <br />
+    <input type="file" name="files" id="files" />
+    @if (Model.MaxFileSize > 0)
+    {
+        <br/>
+        <span class="text-muted">Максимално допустимия размер е @Model.MaxFileSize MB</span>
+    }
+    @Html.EditorFor(x => x.Title)
+    <input type="submit" value="Прикачи" id="cdnUploadButton" />
+    &nbsp;
+    <span id="uploadProgress"></span>
+</form>
+
+<script>
+    $(function () {
+        $('form#cdnUploadFile').ajaxForm({
+            beforeSend: function () {
+                $('#cdnUploadButton').hide();
+                $('#uploadProgress').text('');
+            },
+
+            uploadProgress: function (event, position, total, percentComplete) {
+                var percentVal = 'Моля, изчакайте... ' + percentComplete + '%';
+                $('#uploadProgress').text(percentVal);
+            },
+            complete: function (xhr) {
+                $('#cdnUploadButton').show();
+                $('#uploadProgress').text('');
+                switch (xhr.responseText) {
+                    case "ok":
+                        LoadFiles('@Model.FileContainer');
+                        $('#cdnUploadButton').parents('div.modal:first').modal("hide");
+                        break;
+                    case "max_size":
+                        swalOk("Надвишен максимален размер на файл!");
+                        break;
+                    case "file_ext":
+                        swalOk("Допустимите файлови формати са DOC/DOCX/RTF/PDF/HTML!");
+                        break;
+                    default:
+                }
+            }
+        });
+    });
+</script>

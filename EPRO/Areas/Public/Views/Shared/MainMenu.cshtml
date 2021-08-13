@@ -1,0 +1,25 @@
+﻿@{ var selectedMenu = ViewData["menu"]; }
+<section>
+    <div class="row main-menu">
+        <div class="col menu-item">
+            <a asp-controller="Public" asp-action="Index" asp-area="Public" class="@if (selectedMenu == "index") { <text>active</text>}">
+                <span>За системата</span>
+            </a>
+        </div>
+        <div class="col menu-item">
+            <a asp-controller="Public" asp-action="Reports" asp-area="Public" class="@if (selectedMenu == "report") { <text>active</text>}">
+                <span>Публична информация</span>
+            </a>
+        </div>
+        <div class="col menu-item">
+            <a asp-controller="Home" asp-action="Index" asp-area="admin" class="@if (selectedMenu == "login") { <text>active</text>}">
+                <span>Вход в системата</span>
+            </a>
+        </div>
+        <div class="col menu-item">
+            <a href="~/eispp_user_manual.pdf" target="_blank">
+                <span>Помощ</span>
+            </a>
+        </div>
+    </div>
+</section>
